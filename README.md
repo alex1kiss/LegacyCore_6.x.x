@@ -1,5 +1,5 @@
-# ![logo](http://dar-project.oreg/logowow.png) LegacyCore
-Is a TrinityCore 6.x edited by DAR-Project team
+# ![logo](http://dar-project.org/logowow.png) LegacyCore
+Is a TrinityCore 6.x edited by DAR-Project team [www.DAR-Project.org](http://www.dar-project.org)
 
 ## Build Status
 [![master Build Status](https://travis-ci.org/alex1kiss/LegacyCore_6.x.x.svg?branch=master)](https://travis-ci.org/alex1kiss/LegacyCore_6.x.x)

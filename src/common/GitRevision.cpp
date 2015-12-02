@@ -37,7 +37,7 @@ char const* GitRevision::GetHotfixesDatabase()
     return _HOTFIXES_DATABASE;
 }
 
-#define _PACKAGENAME "TrinityCore"
+#define _PACKAGENAME "LegacyCore"
 
 char const* GitRevision::GetFullVersion()
 {

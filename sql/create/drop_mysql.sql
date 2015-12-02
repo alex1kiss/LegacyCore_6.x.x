@@ -1,22 +1,22 @@
-REVOKE ALL PRIVILEGES ON * . * FROM 'root'@'localhost';
+REVOKE ALL PRIVILEGES ON * . * FROM 'legacy'@'localhost';
 
-REVOKE ALL PRIVILEGES ON `world` . * FROM 'root'@'localhost';
+REVOKE ALL PRIVILEGES ON `world` . * FROM 'legacy'@'localhost';
 
-REVOKE GRANT OPTION ON `world` . * FROM 'root'@'localhost';
+REVOKE GRANT OPTION ON `world` . * FROM 'legacy'@'localhost';
 
-REVOKE ALL PRIVILEGES ON `characters` . * FROM 'root'@'localhost';
+REVOKE ALL PRIVILEGES ON `characters` . * FROM 'legacy'@'localhost';
 
-REVOKE GRANT OPTION ON `characters` . * FROM 'root'@'localhost';
+REVOKE GRANT OPTION ON `characters` . * FROM 'legacy'@'localhost';
 
-REVOKE ALL PRIVILEGES ON `auth` . * FROM 'root'@'localhost';
+REVOKE ALL PRIVILEGES ON `auth` . * FROM 'legacy'@'localhost';
 
-REVOKE GRANT OPTION ON `auth` . * FROM 'root'@'localhost';
+REVOKE GRANT OPTION ON `auth` . * FROM 'legacy'@'localhost';
 
-REVOKE ALL PRIVILEGES ON `hotfixes` . * FROM 'root'@'localhost';
+REVOKE ALL PRIVILEGES ON `hotfixes` . * FROM 'legacy'@'localhost';
 
-REVOKE GRANT OPTION ON `hotfixes` . * FROM 'root'@'localhost';
+REVOKE GRANT OPTION ON `hotfixes` . * FROM 'legacy'@'localhost';
 
-DROP USER 'root'@'localhost';
+DROP USER 'legacy'@'localhost';
 
 DROP DATABASE IF EXISTS `auth`;
 

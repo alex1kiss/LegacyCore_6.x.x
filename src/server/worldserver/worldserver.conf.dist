@@ -92,15 +92,15 @@ LogsDir = "Logs"
 #                                                                 section my.ini)
 #                     ".;/path/to/unix_socket;username;password;database" - (use Unix sockets on
 #                                                                           Unix/Linux)
-#        Default:     "127.0.0.1;3306;root;legacy;auth"       - (LoginDatabaseInfo)
-#                     "127.0.0.1;3306;root;legacy;world"      - (WorldDatabaseInfo)
-#                     "127.0.0.1;3306;root;legacy;characters" - (CharacterDatabaseInfo)
-#                     "127.0.0.1;3306;root;legacy;hotfixes"   - (HotfixDatabaseInfo)
+#        Default:     "127.0.0.1;3306;legacy;legacy;auth"       - (LoginDatabaseInfo)
+#                     "127.0.0.1;3306;legacy;legacy;world"      - (WorldDatabaseInfo)
+#                     "127.0.0.1;3306;legacy;legacy;characters" - (CharacterDatabaseInfo)
+#                     "127.0.0.1;3306;legacy;legacy;hotfixes"   - (HotfixDatabaseInfo)
 
-LoginDatabaseInfo     = "127.0.0.1;3306;root;legacy;auth"
-WorldDatabaseInfo     = "127.0.0.1;3306;root;legacy;world"
-CharacterDatabaseInfo = "127.0.0.1;3306;root;legacy;characters"
-HotfixDatabaseInfo    = "127.0.0.1;3306;root;legacy;hotfixes"
+LoginDatabaseInfo     = "127.0.0.1;3306;legacy;legacy;auth"
+WorldDatabaseInfo     = "127.0.0.1;3306;legacy;legacy;world"
+CharacterDatabaseInfo = "127.0.0.1;3306;legacy;legacy;characters"
+HotfixDatabaseInfo    = "127.0.0.1;3306;legacy;legacy;hotfixes"
 
 #
 #    LoginDatabase.WorkerThreads

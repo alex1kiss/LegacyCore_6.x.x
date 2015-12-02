@@ -143,9 +143,9 @@ WrongPass.BanType = 0
 #                                                                 section my.ini)
 #                     ".;/path/to/unix_socket;username;password;database" - (use Unix sockets on
 #                                                                           Unix/Linux)
-#        Default:     "127.0.0.1;3306;root;legacy;auth"
+#        Default:     "127.0.0.1;3306;legacy;legacy;auth"
 
-LoginDatabaseInfo = "127.0.0.1;3306;root;legacy;auth"
+LoginDatabaseInfo = "127.0.0.1;3306;legacy;legacy;auth"
 
 #
 #    LoginDatabase.WorkerThreads

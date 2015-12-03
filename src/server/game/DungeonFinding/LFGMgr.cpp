@@ -40,8 +40,6 @@ namespace lfg
 LFGMgr::LFGMgr(): m_QueueTimer(0), m_lfgProposalId(1),
     m_options(sWorld->getIntConfig(CONFIG_LFG_OPTIONSMASK))
 {
-    new LFGPlayerScript();
-    new LFGGroupScript();
 }
 
 LFGMgr::~LFGMgr()
@@ -256,6 +254,12 @@ void LFGMgr::LoadLFGDungeons(bool reload /* = false */)
 
     if (reload)
         CachedDungeonMapStore.clear();
+}
+
+LFGMgr* LFGMgr::instance()
+{
+    static LFGMgr instance;
+    return &instance;
 }
 
 void LFGMgr::Update(uint32 diff)

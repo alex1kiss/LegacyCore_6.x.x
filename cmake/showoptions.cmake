@@ -1,8 +1,8 @@
 # output generic information about the core and buildtype chosen
 message("")
-message("* TrinityCore revision   : ${rev_hash} ${rev_date} (${rev_branch} branch)")
+message("* LegacyCore revision   : ${rev_hash} ${rev_date} (${rev_branch} branch)")
 if( UNIX )
-  message("* TrinityCore buildtype  : ${CMAKE_BUILD_TYPE}")
+  message("* LegacyCore buildtype  : ${CMAKE_BUILD_TYPE}")
 endif()
 message("")
 
@@ -21,13 +21,6 @@ if( SERVERS )
   message("* Build world/auth       : Yes (default)")
 else()
   message("* Build world/bnetserver : No")
-endif()
-
-if( SCRIPTS )
-  message("* Build with scripts     : Yes (default)")
-  add_definitions(-DSCRIPTS)
-else()
-  message("* Build with scripts     : No")
 endif()
 
 if( TOOLS )
@@ -123,5 +116,17 @@ if ( HELGRIND )
   add_definitions(-DHELGRIND)
 endif()
 
-message("")
+if (WITH_DYNAMIC_LINKING)
+  if (DYNAMIC_LINKING_FORCED)
+    message("")
+    message(" *** DYNAMIC_LINKING forced through dynamic script module! - INFO!")
+  endif()
 
+  message("")
+  message(" *** DYNAMIC_LINKING - INFO!")
+  message(" *** Will link against shared libraries!")
+  message(" *** Please note that this is for development only!")
+  add_definitions(-DTRINITY_API_USE_DYNAMIC_LINKING)
+endif()
+
+message("")

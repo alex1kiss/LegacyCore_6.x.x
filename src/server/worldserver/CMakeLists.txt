@@ -29,7 +29,7 @@ set(worldserver_SRCS
 if( WIN32 )
   set(worldserver_SRCS
     ${worldserver_SRCS}
-    ${sources_windows_Debugging}
+    ${sources_windows}
   )
   if ( MSVC )
     set(worldserver_SRCS
@@ -60,10 +60,12 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/src/common/Logging
   ${CMAKE_SOURCE_DIR}/src/common/Threading
   ${CMAKE_SOURCE_DIR}/src/common/Utilities
+  ${CMAKE_SOURCE_DIR}/src/common/Platform
   ${CMAKE_SOURCE_DIR}/src/server/authserver/Realms
   ${CMAKE_SOURCE_DIR}/src/server/database/
   ${CMAKE_SOURCE_DIR}/src/server/database/Database
   ${CMAKE_SOURCE_DIR}/src/server/database/Logging
+  ${CMAKE_SOURCE_DIR}/src/server/database/Updater
   ${CMAKE_SOURCE_DIR}/src/server/game
   ${CMAKE_SOURCE_DIR}/src/server/game/Accounts
   ${CMAKE_SOURCE_DIR}/src/server/game/Addons
@@ -139,12 +141,12 @@ endif()
 set_target_properties(worldserver PROPERTIES LINK_FLAGS "${worldserver_LINK_FLAGS}")
 
 target_link_libraries(worldserver
-  game
   common
-  shared
-  database
-  scripts
   ipc
+  database
+  shared
+  game
+  scripts
   g3dlib
   gsoap
   Detour
@@ -160,6 +162,12 @@ target_link_libraries(worldserver
   ${CMAKE_THREAD_LIBS_INIT}
   ${Boost_LIBRARIES}
 )
+
+# Register the dynamic script modules as dependency to the worldserver
+# to ensure that all scripts are always built when building the worldserver.
+if (REGISTERED_DYNAMIC_SCRIPT_MODULES)
+  add_dependencies(worldserver ${REGISTERED_DYNAMIC_SCRIPT_MODULES})
+endif()
 
 if( WIN32 )
   if ( MSVC )

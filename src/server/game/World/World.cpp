@@ -43,6 +43,7 @@
 #include "GridNotifiersImpl.h"
 #include "GroupMgr.h"
 #include "GuildFinderMgr.h"
+#include "GameObjectModel.h"
 #include "InstanceSaveMgr.h"
 #include "Language.h"
 #include "LFGMgr.h"
@@ -56,6 +57,7 @@
 #include "PoolMgr.h"
 #include "GitRevision.h"
 #include "ScriptMgr.h"
+#include "ScriptReloadMgr.h"
 #include "SkillDiscovery.h"
 #include "SkillExtraItems.h"
 #include "SmartAI.h"
@@ -73,17 +75,18 @@
 
 #include <boost/algorithm/string.hpp>
 
-std::atomic<bool> World::m_stopEvent(false);
-uint8 World::m_ExitCode = SHUTDOWN_EXIT_CODE;
-std::atomic<uint32> World::m_worldLoopCounter(0);
+TRINITY_GAME_API std::atomic<bool> World::m_stopEvent(false);
+TRINITY_GAME_API uint8 World::m_ExitCode = SHUTDOWN_EXIT_CODE;
 
-float World::m_MaxVisibleDistanceOnContinents = DEFAULT_VISIBILITY_DISTANCE;
-float World::m_MaxVisibleDistanceInInstances  = DEFAULT_VISIBILITY_INSTANCE;
-float World::m_MaxVisibleDistanceInBGArenas   = DEFAULT_VISIBILITY_BGARENAS;
+TRINITY_GAME_API std::atomic<uint32> World::m_worldLoopCounter(0);
 
-int32 World::m_visibility_notify_periodOnContinents = DEFAULT_VISIBILITY_NOTIFY_PERIOD;
-int32 World::m_visibility_notify_periodInInstances  = DEFAULT_VISIBILITY_NOTIFY_PERIOD;
-int32 World::m_visibility_notify_periodInBGArenas   = DEFAULT_VISIBILITY_NOTIFY_PERIOD;
+TRINITY_GAME_API float World::m_MaxVisibleDistanceOnContinents = DEFAULT_VISIBILITY_DISTANCE;
+TRINITY_GAME_API float World::m_MaxVisibleDistanceInInstances  = DEFAULT_VISIBILITY_INSTANCE;
+TRINITY_GAME_API float World::m_MaxVisibleDistanceInBGArenas   = DEFAULT_VISIBILITY_BGARENAS;
+
+TRINITY_GAME_API int32 World::m_visibility_notify_periodOnContinents = DEFAULT_VISIBILITY_NOTIFY_PERIOD;
+TRINITY_GAME_API int32 World::m_visibility_notify_periodInInstances  = DEFAULT_VISIBILITY_NOTIFY_PERIOD;
+TRINITY_GAME_API int32 World::m_visibility_notify_periodInBGArenas   = DEFAULT_VISIBILITY_NOTIFY_PERIOD;
 
 /// World constructor
 World::World()
@@ -120,6 +123,8 @@ World::World()
 
     m_CleaningFlags = 0;
 
+    m_script_loader_function = nullptr;
+
     memset(rate_values, 0, sizeof(rate_values));
     memset(m_int_configs, 0, sizeof(m_int_configs));
     memset(m_bool_configs, 0, sizeof(m_bool_configs));
@@ -145,6 +150,12 @@ World::~World()
     MMAP::MMapFactory::clear();
 
     /// @todo free addSessQueue
+}
+
+World* World::instance()
+{
+    static World instance;
+    return &instance;
 }
 
 /// Find a player in a specified zone
@@ -1391,12 +1402,16 @@ void World::LoadConfigSettings(bool reload)
     m_bool_configs[CONFIG_CALCULATE_CREATURE_ZONE_AREA_DATA] = sConfigMgr->GetBoolDefault("Calculate.Creature.Zone.Area.Data", false);
     m_bool_configs[CONFIG_CALCULATE_GAMEOBJECT_ZONE_AREA_DATA] = sConfigMgr->GetBoolDefault("Calculate.Gameoject.Zone.Area.Data", false);
 
+    // HotSwap
+    m_bool_configs[CONFIG_HOTSWAP_ENABLED] = sConfigMgr->GetBoolDefault("HotSwap.Enabled", true);
+    m_bool_configs[CONFIG_HOTSWAP_RECOMPILER_ENABLED] = sConfigMgr->GetBoolDefault("HotSwap.EnableReCompiler", false);
+    m_bool_configs[CONFIG_HOTSWAP_INSTALL_ENABLED] = sConfigMgr->GetBoolDefault("HotSwap.EnableInstall", true);
+    m_bool_configs[CONFIG_HOTSWAP_PREFIX_CORRECTION_ENABLED] = sConfigMgr->GetBoolDefault("HotSwap.EnablePrefixCorrection", true);
+
     // call ScriptMgr if we're reloading the configuration
     if (reload)
         sScriptMgr->OnConfigLoad(reload);
 }
-
-extern void LoadGameObjectModelList(std::string const& dataPath);
 
 /// Initialize the World
 void World::SetInitialWorldSettings()
@@ -1944,6 +1959,9 @@ void World::SetInitialWorldSettings()
 
     m_timers[WUPDATE_GUILDSAVE].SetInterval(getIntConfig(CONFIG_GUILD_SAVE_INTERVAL) * MINUTE * IN_MILLISECONDS);
 
+    // for file changes checker
+    m_timers[WUPDATE_CHECK_FILECHANGES].SetInterval(1 * IN_MILLISECONDS);
+
     //to set mailtimer to return mails every day between 4 and 5 am
     //mailtimer is increased when updating auctions
     //one second is 1000 -(tested on win system)
@@ -2182,6 +2200,13 @@ void World::Update(uint32 diff)
     {
         sAuctionBot->Update();
         m_timers[WUPDATE_AHBOT].Reset();
+    }
+
+    /// <li> Handle file changes
+    if (m_timers[WUPDATE_CHECK_FILECHANGES].Passed())
+    {
+        sScriptReloadMgr->Update();
+        m_timers[WUPDATE_CHECK_FILECHANGES].Reset();
     }
 
     /// <li> Handle session updates when the timer has passed
@@ -3454,6 +3479,8 @@ void World::RemoveOldCorpses()
 {
     m_timers[WUPDATE_CORPSES].SetCurrent(m_timers[WUPDATE_CORPSES].GetInterval());
 }
+
+Realm realm;
 
 uint32 GetVirtualRealmAddress()
 {

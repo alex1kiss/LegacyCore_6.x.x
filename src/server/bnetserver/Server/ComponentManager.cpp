@@ -53,9 +53,3 @@ bool Battlenet::ComponentMgr::HasComponent(Battlenet::Version::Record const* com
 
     return false;
 }
-
-Battlenet::ComponentMgr* Battlenet::ComponentMgr::instance()
-{
-    static ComponentMgr instance;
-    return &instance;
-}

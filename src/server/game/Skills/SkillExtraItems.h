@@ -23,14 +23,12 @@
 
 // predef classes used in functions
 class Player;
-
 // returns true and sets the appropriate info if the player can create a perfect item with the given spellId
-TRINITY_GAME_API bool CanCreatePerfectItem(Player* player, uint32 spellId, float &perfectCreateChance, uint32 &perfectItemType);
+bool CanCreatePerfectItem(Player* player, uint32 spellId, float &perfectCreateChance, uint32 &perfectItemType);
 // load perfection proc info from DB
-TRINITY_GAME_API void LoadSkillPerfectItemTable();
+void LoadSkillPerfectItemTable();
 // returns true and sets the appropriate info if the player can create extra items with the given spellId
-TRINITY_GAME_API bool CanCreateExtraItems(Player* player, uint32 spellId, float &additionalChance, uint8 &additionalMax);
+bool CanCreateExtraItems(Player* player, uint32 spellId, float &additionalChance, uint8 &additionalMax);
 // function to load the extra item creation info from DB
-TRINITY_GAME_API void LoadSkillExtraItemTable();
-
+void LoadSkillExtraItemTable();
 #endif

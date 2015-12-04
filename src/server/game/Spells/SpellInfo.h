@@ -204,7 +204,7 @@ enum SpellCustomAttributes
 
 uint32 GetTargetFlagMask(SpellTargetObjectTypes objType);
 
-class TRINITY_GAME_API SpellImplicitTargetInfo
+class SpellImplicitTargetInfo
 {
 private:
     Targets _target;
@@ -235,7 +235,7 @@ private:
     static StaticData _data[TOTAL_SPELL_TARGETS];
 };
 
-class TRINITY_GAME_API SpellEffectInfo
+class SpellEffectInfo
 {
     SpellInfo const* _spellInfo;
 public:
@@ -323,7 +323,7 @@ typedef std::unordered_map<uint32, SpellVisualVector> SpellVisualMap;
 
 typedef std::vector<AuraEffect*> AuraEffectVector;
 
-class TRINITY_GAME_API SpellInfo
+class SpellInfo
 {
 public:
     uint32 Id;

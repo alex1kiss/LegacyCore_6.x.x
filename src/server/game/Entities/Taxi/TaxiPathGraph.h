@@ -25,10 +25,14 @@
 class Player;
 struct TaxiNodesEntry;
 
-class TRINITY_GAME_API TaxiPathGraph
+class TaxiPathGraph
 {
 public:
-    static TaxiPathGraph& Instance();
+    static TaxiPathGraph& Instance()
+    {
+        static TaxiPathGraph instance;
+        return instance;
+    }
 
     void Initialize();
     std::size_t GetCompleteNodeRoute(TaxiNodesEntry const* from, TaxiNodesEntry const* to, Player const* player, std::vector<uint32>& shortestPath);

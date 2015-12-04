@@ -189,12 +189,6 @@ void WardenCheckMgr::LoadWardenOverrides()
     TC_LOG_INFO("server.loading", ">> Loaded %u warden action overrides.", count);
 }
 
-WardenCheckMgr* WardenCheckMgr::instance()
-{
-    static WardenCheckMgr instance;
-    return &instance;
-}
-
 WardenCheck* WardenCheckMgr::GetWardenDataById(uint16 Id)
 {
     if (Id < CheckStore.size())

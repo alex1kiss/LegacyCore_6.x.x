@@ -38,7 +38,7 @@ namespace MMAP
     // static class
     // holds all mmap global data
     // access point to MMapManager singleton
-    class TRINITY_COMMON_API MMapFactory
+    class MMapFactory
     {
         public:
             static MMapManager* createOrGetMMapManager();

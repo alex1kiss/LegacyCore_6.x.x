@@ -37,7 +37,7 @@ class WorldObject;
 
 struct GameTele;
 
-class TRINITY_GAME_API ChatCommand
+class ChatCommand
 {
     typedef bool(*pHandler)(ChatHandler*, char const*);
 
@@ -53,7 +53,7 @@ class TRINITY_GAME_API ChatCommand
         std::vector<ChatCommand> ChildCommands;
 };
 
-class TRINITY_GAME_API ChatHandler
+class ChatHandler
 {
     public:
         WorldSession* GetSession() { return m_session; }
@@ -89,7 +89,6 @@ class TRINITY_GAME_API ChatHandler
         bool ParseCommands(const char* text);
 
         static std::vector<ChatCommand> const& getCommandTable();
-        static void invalidateCommandTable();
 
         bool isValidChatMessage(const char* msg);
         void SendGlobalSysMessage(const char *str);
@@ -137,6 +136,8 @@ class TRINITY_GAME_API ChatHandler
         GameObject* GetObjectGlobalyWithGuidOrNearWithDbGuid(ObjectGuid::LowType lowguid, uint32 entry);
         bool HasSentErrorMessage() const { return sentErrorMessage; }
         void SetSentErrorMessage(bool val){ sentErrorMessage = val; }
+        static bool LoadCommandTable() { return load_command_table; }
+        static void SetLoadCommandTable(bool val) { load_command_table = val; }
 
         bool ShowHelpForCommand(std::vector<ChatCommand> const& table, const char* cmd);
     protected:
@@ -149,10 +150,11 @@ class TRINITY_GAME_API ChatHandler
         WorldSession* m_session;                           // != NULL for chat command call and NULL for CLI command
 
         // common global flag
+        static bool load_command_table;
         bool sentErrorMessage;
 };
 
-class TRINITY_GAME_API CliHandler : public ChatHandler
+class CliHandler : public ChatHandler
 {
     public:
         typedef void Print(void*, char const*);

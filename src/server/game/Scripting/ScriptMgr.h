@@ -46,7 +46,6 @@ class InstanceMap;
 class InstanceScript;
 class Item;
 class Map;
-class ModuleReference;
 class OutdoorPvP;
 class Player;
 class Quest;
@@ -147,7 +146,7 @@ struct OutdoorPvPData;
     event on all registered scripts of that type.
 */
 
-class TRINITY_GAME_API ScriptObject
+class ScriptObject
 {
     friend class ScriptMgr;
 
@@ -186,7 +185,7 @@ template<class TObject> class UpdatableScript
         virtual void OnUpdate(TObject* /*obj*/, uint32 /*diff*/) { }
 };
 
-class TRINITY_GAME_API SpellScriptLoader : public ScriptObject
+class SpellScriptLoader : public ScriptObject
 {
     protected:
 
@@ -201,7 +200,7 @@ class TRINITY_GAME_API SpellScriptLoader : public ScriptObject
         virtual AuraScript* GetAuraScript() const { return NULL; }
 };
 
-class TRINITY_GAME_API ServerScript : public ScriptObject
+class ServerScript : public ScriptObject
 {
     protected:
 
@@ -335,14 +334,14 @@ template<class TMap> class MapScript : public UpdatableScript<TMap>
         virtual void OnPlayerLeave(TMap* /*map*/, Player* /*player*/) { }
 };
 
-class TRINITY_GAME_API WorldMapScript : public ScriptObject, public MapScript<Map>
+class WorldMapScript : public ScriptObject, public MapScript<Map>
 {
     protected:
 
         WorldMapScript(const char* name, uint32 mapId);
 };
 
-class TRINITY_GAME_API InstanceMapScript : public ScriptObject, public MapScript<InstanceMap>
+class InstanceMapScript : public ScriptObject, public MapScript<InstanceMap>
 {
     protected:
 
@@ -354,14 +353,14 @@ class TRINITY_GAME_API InstanceMapScript : public ScriptObject, public MapScript
         virtual InstanceScript* GetInstanceScript(InstanceMap* /*map*/) const { return NULL; }
 };
 
-class TRINITY_GAME_API BattlegroundMapScript : public ScriptObject, public MapScript<BattlegroundMap>
+class BattlegroundMapScript : public ScriptObject, public MapScript<BattlegroundMap>
 {
     protected:
 
         BattlegroundMapScript(const char* name, uint32 mapId);
 };
 
-class TRINITY_GAME_API ItemScript : public ScriptObject
+class ItemScript : public ScriptObject
 {
     protected:
 
@@ -385,7 +384,7 @@ class TRINITY_GAME_API ItemScript : public ScriptObject
         virtual bool OnRemove(Player* /*player*/, Item* /*item*/) { return false; }
 };
 
-class TRINITY_GAME_API UnitScript : public ScriptObject
+class UnitScript : public ScriptObject
 {
     protected:
 
@@ -408,7 +407,7 @@ class TRINITY_GAME_API UnitScript : public ScriptObject
         virtual void ModifySpellDamageTaken(Unit* /*target*/, Unit* /*attacker*/, int32& /*damage*/) { }
 };
 
-class TRINITY_GAME_API CreatureScript : public UnitScript, public UpdatableScript<Creature>
+class CreatureScript : public UnitScript, public UpdatableScript<Creature>
 {
     protected:
 
@@ -444,7 +443,7 @@ class TRINITY_GAME_API CreatureScript : public UnitScript, public UpdatableScrip
         virtual CreatureAI* GetAI(Creature* /*creature*/) const { return NULL; }
 };
 
-class TRINITY_GAME_API GameObjectScript : public ScriptObject, public UpdatableScript<GameObject>
+class GameObjectScript : public ScriptObject, public UpdatableScript<GameObject>
 {
     protected:
 
@@ -489,7 +488,7 @@ class TRINITY_GAME_API GameObjectScript : public ScriptObject, public UpdatableS
         virtual GameObjectAI* GetAI(GameObject* /*go*/) const { return NULL; }
 };
 
-class TRINITY_GAME_API AreaTriggerScript : public ScriptObject
+class AreaTriggerScript : public ScriptObject
 {
     protected:
 
@@ -501,7 +500,7 @@ class TRINITY_GAME_API AreaTriggerScript : public ScriptObject
         virtual bool OnTrigger(Player* /*player*/, AreaTriggerEntry const* /*trigger*/, bool /*entered*/) { return false; }
 };
 
-class TRINITY_GAME_API BattlegroundScript : public ScriptObject
+class BattlegroundScript : public ScriptObject
 {
     protected:
 
@@ -513,7 +512,7 @@ class TRINITY_GAME_API BattlegroundScript : public ScriptObject
         virtual Battleground* GetBattleground() const = 0;
 };
 
-class TRINITY_GAME_API OutdoorPvPScript : public ScriptObject
+class OutdoorPvPScript : public ScriptObject
 {
     protected:
 
@@ -525,7 +524,7 @@ class TRINITY_GAME_API OutdoorPvPScript : public ScriptObject
         virtual OutdoorPvP* GetOutdoorPvP() const = 0;
 };
 
-class TRINITY_GAME_API CommandScript : public ScriptObject
+class CommandScript : public ScriptObject
 {
     protected:
 
@@ -537,7 +536,7 @@ class TRINITY_GAME_API CommandScript : public ScriptObject
         virtual std::vector<ChatCommand> GetCommands() const = 0;
 };
 
-class TRINITY_GAME_API WeatherScript : public ScriptObject, public UpdatableScript<Weather>
+class WeatherScript : public ScriptObject, public UpdatableScript<Weather>
 {
     protected:
 
@@ -549,7 +548,7 @@ class TRINITY_GAME_API WeatherScript : public ScriptObject, public UpdatableScri
         virtual void OnChange(Weather* /*weather*/, WeatherState /*state*/, float /*grade*/) { }
 };
 
-class TRINITY_GAME_API AuctionHouseScript : public ScriptObject
+class AuctionHouseScript : public ScriptObject
 {
     protected:
 
@@ -570,7 +569,7 @@ class TRINITY_GAME_API AuctionHouseScript : public ScriptObject
         virtual void OnAuctionExpire(AuctionHouseObject* /*ah*/, AuctionEntry* /*entry*/) { }
 };
 
-class TRINITY_GAME_API ConditionScript : public ScriptObject
+class ConditionScript : public ScriptObject
 {
     protected:
 
@@ -582,7 +581,7 @@ class TRINITY_GAME_API ConditionScript : public ScriptObject
         virtual bool OnConditionCheck(Condition const* /*condition*/, ConditionSourceInfo& /*sourceInfo*/) { return true; }
 };
 
-class TRINITY_GAME_API VehicleScript : public ScriptObject
+class VehicleScript : public ScriptObject
 {
     protected:
 
@@ -609,14 +608,14 @@ class TRINITY_GAME_API VehicleScript : public ScriptObject
         virtual void OnRemovePassenger(Vehicle* /*veh*/, Unit* /*passenger*/) { }
 };
 
-class TRINITY_GAME_API DynamicObjectScript : public ScriptObject, public UpdatableScript<DynamicObject>
+class DynamicObjectScript : public ScriptObject, public UpdatableScript<DynamicObject>
 {
     protected:
 
         DynamicObjectScript(const char* name);
 };
 
-class TRINITY_GAME_API TransportScript : public ScriptObject, public UpdatableScript<Transport>
+class TransportScript : public ScriptObject, public UpdatableScript<Transport>
 {
     protected:
 
@@ -637,7 +636,7 @@ class TRINITY_GAME_API TransportScript : public ScriptObject, public UpdatableSc
         virtual void OnRelocate(Transport* /*transport*/, uint32 /*waypointId*/, uint32 /*mapId*/, float /*x*/, float /*y*/, float /*z*/) { }
 };
 
-class TRINITY_GAME_API AchievementCriteriaScript : public ScriptObject
+class AchievementCriteriaScript : public ScriptObject
 {
     protected:
 
@@ -649,7 +648,7 @@ class TRINITY_GAME_API AchievementCriteriaScript : public ScriptObject
         virtual bool OnCheck(Player* source, Unit* target) = 0;
 };
 
-class TRINITY_GAME_API PlayerScript : public UnitScript
+class PlayerScript : public UnitScript
 {
     protected:
 
@@ -746,7 +745,7 @@ class TRINITY_GAME_API PlayerScript : public UnitScript
         virtual void OnQuestStatusChange(Player* /*player*/, uint32 /*questId*/, QuestStatus /*status*/) { }
 };
 
-class TRINITY_GAME_API AccountScript : public ScriptObject
+class AccountScript : public ScriptObject
 {
     protected:
 
@@ -773,7 +772,7 @@ class TRINITY_GAME_API AccountScript : public ScriptObject
         virtual void OnFailedPasswordChange(uint32 /*accountId*/) {}
 };
 
-class TRINITY_GAME_API GuildScript : public ScriptObject
+class GuildScript : public ScriptObject
 {
     protected:
 
@@ -814,7 +813,7 @@ class TRINITY_GAME_API GuildScript : public ScriptObject
         virtual void OnBankEvent(Guild* /*guild*/, uint8 /*eventType*/, uint8 /*tabId*/, ObjectGuid::LowType /*playerGuid*/, uint64 /*itemOrMoney*/, uint16 /*itemStackCount*/, uint8 /*destTabId*/) { }
 };
 
-class TRINITY_GAME_API GroupScript : public ScriptObject
+class GroupScript : public ScriptObject
 {
     protected:
 
@@ -838,8 +837,20 @@ class TRINITY_GAME_API GroupScript : public ScriptObject
         virtual void OnDisband(Group* /*group*/) { }
 };
 
+// Placed here due to ScriptRegistry::AddScript dependency.
+#define sScriptMgr ScriptMgr::instance()
+
+// namespace
+// {
+    typedef std::vector<ScriptObject*> UnusedScriptContainer;
+    typedef std::list<std::string> UnusedScriptNamesContainer;
+
+    extern UnusedScriptContainer UnusedScripts;
+    extern UnusedScriptNamesContainer UnusedScriptNames;
+// }
+
 // Manages registration, loading, and execution of scripts.
-class TRINITY_GAME_API ScriptMgr
+class ScriptMgr
 {
     friend class ScriptObject;
 
@@ -847,40 +858,32 @@ class TRINITY_GAME_API ScriptMgr
         ScriptMgr();
         virtual ~ScriptMgr();
 
-        void FillSpellSummary();
-        void LoadDatabase();
-
     public: /* Initialization */
-        static ScriptMgr* instance();
+        static ScriptMgr* instance()
+        {
+            static ScriptMgr instance;
+            return &instance;
+        }
 
         void Initialize();
+        void LoadDatabase();
+        void FillSpellSummary();
 
+        const char* ScriptsVersion() const { return "Integrated Trinity Scripts"; }
+
+        void IncrementScriptCount() { ++_scriptCount; }
         uint32 GetScriptCount() const { return _scriptCount; }
-
-    public: /* Script contexts */
-        /// Set the current script context.
-        void SetScriptContext(std::string const& context);
-        /// Returns the current script context.
-        std::string const& GetCurrentScriptContext() { return _currentContext; }
-        /// Swaps all changes into the script entities.
-        void SwapScriptContext();
-
-        /// Releases all scripts associated with the given script context.
-        void ReleaseScriptContext(std::string const& context);
-
-        /// Acquire a strong module reference to the module containing the
-        /// given script name.
-        std::shared_ptr<ModuleReference> AcquireModuleReference(std::string const& scriptname) const;
 
     public: /* Unloading */
 
         void Unload();
+        void UnloadUnusedScripts();
 
     public: /* SpellScriptLoader */
 
         void CreateSpellScripts(uint32 spellId, std::list<SpellScript*>& scriptVector);
         void CreateAuraScripts(uint32 spellId, std::list<AuraScript*>& scriptVector);
-        SpellScriptLoader* GetSpellScriptLoader(uint32 scriptId);
+        void CreateSpellScriptLoaders(uint32 spellId, std::vector<std::pair<SpellScriptLoader*, std::multimap<uint32, uint32>::iterator> >& scriptVector);
 
     public: /* ServerScript */
 
@@ -1102,14 +1105,11 @@ class TRINITY_GAME_API ScriptMgr
         bool IsScriptScheduled() const { return _scheduledScripts > 0; }
 
     private:
+
         uint32 _scriptCount;
 
         //atomic op counter for active scripts amount
         std::atomic<uint64> _scheduledScripts;
-
-        std::string _currentContext;
 };
-
-#define sScriptMgr ScriptMgr::instance()
 
 #endif

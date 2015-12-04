@@ -42,7 +42,7 @@ enum SmartEscortVars
     SMART_MAX_AID_DIST    = SMART_ESCORT_MAX_PLAYER_DIST / 2
 };
 
-class TRINITY_GAME_API SmartAI : public CreatureAI
+class SmartAI : public CreatureAI
 {
     public:
         ~SmartAI(){ }
@@ -230,7 +230,7 @@ class TRINITY_GAME_API SmartAI : public CreatureAI
         bool mJustReset;
 };
 
-class TRINITY_GAME_API SmartGameObjectAI : public GameObjectAI
+class SmartGameObjectAI : public GameObjectAI
 {
     public:
         SmartGameObjectAI(GameObject* g) : GameObjectAI(g) { }
@@ -257,7 +257,4 @@ class TRINITY_GAME_API SmartGameObjectAI : public GameObjectAI
     private:
         SmartScript mScript;
 };
-
-/*keep private*/ void AddSC_SmartScripts();
-
 #endif

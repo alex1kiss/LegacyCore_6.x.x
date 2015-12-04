@@ -63,7 +63,7 @@ enum MailAuctionAnswers
     AUCTION_SALE_PENDING        = 6
 };
 
-struct TRINITY_GAME_API AuctionEntry
+struct AuctionEntry
 {
     uint32 Id;
     ObjectGuid::LowType auctioneer;                                      // creature low guid
@@ -95,7 +95,7 @@ struct TRINITY_GAME_API AuctionEntry
 };
 
 //this class is used as auctionhouse instance
-class TRINITY_GAME_API AuctionHouseObject
+class AuctionHouseObject
 {
   public:
     ~AuctionHouseObject()
@@ -133,14 +133,18 @@ class TRINITY_GAME_API AuctionHouseObject
     AuctionEntryMap AuctionsMap;
 };
 
-class TRINITY_GAME_API AuctionHouseMgr
+class AuctionHouseMgr
 {
     private:
         AuctionHouseMgr();
         ~AuctionHouseMgr();
 
     public:
-        static AuctionHouseMgr* instance();
+        static AuctionHouseMgr* instance()
+        {
+            static AuctionHouseMgr instance;
+            return &instance;
+        }
 
         typedef std::unordered_map<ObjectGuid::LowType, Item*> ItemMap;
 

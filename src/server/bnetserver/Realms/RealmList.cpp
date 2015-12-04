@@ -28,12 +28,6 @@ RealmList::RealmList() : _updateInterval(0), _updateTimer(nullptr), _resolver(nu
 {
 }
 
-RealmList* RealmList::instance()
-{
-    static RealmList instance;
-    return &instance;
-}
-
 RealmList::~RealmList()
 {
     delete _updateTimer;

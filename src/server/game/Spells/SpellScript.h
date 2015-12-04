@@ -22,7 +22,6 @@
 #include "SharedDefines.h"
 #include "SpellAuraDefines.h"
 #include "Spell.h"
-#include "ScriptReloadMgr.h"
 #include <stack>
 
 class Unit;
@@ -53,7 +52,7 @@ enum SpellScriptState
 #define SPELL_SCRIPT_STATE_END SPELL_SCRIPT_STATE_UNLOADING + 1
 
 // helper class from which SpellScript and SpellAura derive, use these classes instead
-class TRINITY_GAME_API _SpellScript
+class _SpellScript
 {
     // internal use classes & functions
     // DO NOT OVERRIDE THESE IN SCRIPTS
@@ -69,7 +68,7 @@ class TRINITY_GAME_API _SpellScript
         std::string const* _GetScriptName() const;
 
     protected:
-        class TRINITY_GAME_API EffectHook
+        class EffectHook
         {
             public:
                 EffectHook(uint8 _effIndex);
@@ -83,7 +82,7 @@ class TRINITY_GAME_API _SpellScript
                 uint8 effIndex;
         };
 
-        class TRINITY_GAME_API EffectNameCheck
+        class EffectNameCheck
         {
             public:
                 EffectNameCheck(uint16 _effName) { effName = _effName; }
@@ -93,7 +92,7 @@ class TRINITY_GAME_API _SpellScript
                 uint16 effName;
         };
 
-        class TRINITY_GAME_API EffectAuraNameCheck
+        class EffectAuraNameCheck
         {
             public:
                 EffectAuraNameCheck(uint16 _effAurName) { effAurName = _effAurName; }
@@ -106,16 +105,6 @@ class TRINITY_GAME_API _SpellScript
         uint8 m_currentScriptState;
         std::string const* m_scriptName;
         uint32 m_scriptSpellId;
-
-    private:
-
-#ifdef TRINITY_API_USE_DYNAMIC_LINKING
-
-        // Strong reference to keep the binary code loaded
-        std::shared_ptr<ModuleReference> m_moduleReference;
-
-#endif // #ifndef TRINITY_API_USE_DYNAMIC_LINKING
-
     public:
         //
         // SpellScript/AuraScript interface base
@@ -160,7 +149,7 @@ enum SpellScriptHookType
 #define HOOK_SPELL_END SPELL_SCRIPT_HOOK_CHECK_CAST + 1
 #define HOOK_SPELL_COUNT HOOK_SPELL_END - HOOK_SPELL_START
 
-class TRINITY_GAME_API SpellScript : public _SpellScript
+class SpellScript : public _SpellScript
 {
     // internal use classes & functions
     // DO NOT OVERRIDE THESE IN SCRIPTS
@@ -176,7 +165,7 @@ class TRINITY_GAME_API SpellScript : public _SpellScript
 
         SPELLSCRIPT_FUNCTION_TYPE_DEFINES(SpellScript)
 
-        class TRINITY_GAME_API CastHandler
+        class CastHandler
         {
             public:
                 CastHandler(SpellCastFnType _pCastHandlerScript);
@@ -185,7 +174,7 @@ class TRINITY_GAME_API SpellScript : public _SpellScript
                 SpellCastFnType pCastHandlerScript;
         };
 
-        class TRINITY_GAME_API CheckCastHandler
+        class CheckCastHandler
         {
             public:
                 CheckCastHandler(SpellCheckCastFnType checkCastHandlerScript);
@@ -194,7 +183,7 @@ class TRINITY_GAME_API SpellScript : public _SpellScript
                 SpellCheckCastFnType _checkCastHandlerScript;
         };
 
-        class TRINITY_GAME_API EffectHandler : public  _SpellScript::EffectNameCheck, public _SpellScript::EffectHook
+        class EffectHandler : public  _SpellScript::EffectNameCheck, public _SpellScript::EffectHook
         {
             public:
                 EffectHandler(SpellEffectFnType _pEffectHandlerScript, uint8 _effIndex, uint16 _effName);
@@ -205,7 +194,7 @@ class TRINITY_GAME_API SpellScript : public _SpellScript
                 SpellEffectFnType pEffectHandlerScript;
         };
 
-        class TRINITY_GAME_API HitHandler
+        class HitHandler
         {
             public:
                 HitHandler(SpellHitFnType _pHitHandlerScript);
@@ -214,7 +203,7 @@ class TRINITY_GAME_API SpellScript : public _SpellScript
                 SpellHitFnType pHitHandlerScript;
         };
 
-        class TRINITY_GAME_API TargetHook : public _SpellScript::EffectHook
+        class TargetHook : public _SpellScript::EffectHook
         {
             public:
                 TargetHook(uint8 _effectIndex, uint16 _targetType, bool _area, bool _dest);
@@ -227,7 +216,7 @@ class TRINITY_GAME_API SpellScript : public _SpellScript
                 bool dest;
         };
 
-        class TRINITY_GAME_API ObjectAreaTargetSelectHandler : public TargetHook
+        class ObjectAreaTargetSelectHandler : public TargetHook
         {
             public:
                 ObjectAreaTargetSelectHandler(SpellObjectAreaTargetSelectFnType _pObjectAreaTargetSelectHandlerScript, uint8 _effIndex, uint16 _targetType);
@@ -236,7 +225,7 @@ class TRINITY_GAME_API SpellScript : public _SpellScript
                 SpellObjectAreaTargetSelectFnType pObjectAreaTargetSelectHandlerScript;
         };
 
-        class TRINITY_GAME_API ObjectTargetSelectHandler : public TargetHook
+        class ObjectTargetSelectHandler : public TargetHook
         {
             public:
                 ObjectTargetSelectHandler(SpellObjectTargetSelectFnType _pObjectTargetSelectHandlerScript, uint8 _effIndex, uint16 _targetType);
@@ -245,7 +234,7 @@ class TRINITY_GAME_API SpellScript : public _SpellScript
                 SpellObjectTargetSelectFnType pObjectTargetSelectHandlerScript;
         };
 
-        class TRINITY_GAME_API DestinationTargetSelectHandler : public TargetHook
+        class DestinationTargetSelectHandler : public TargetHook
         {
             public:
                 DestinationTargetSelectHandler(SpellDestinationTargetSelectFnType _DestinationTargetSelectHandlerScript, uint8 _effIndex, uint16 _targetType);
@@ -483,7 +472,7 @@ enum AuraScriptHookType
 #define HOOK_AURA_EFFECT_END HOOK_AURA_EFFECT_CALC_SPELLMOD + 1
 #define HOOK_AURA_EFFECT_COUNT HOOK_AURA_EFFECT_END - HOOK_AURA_EFFECT_START
 */
-class TRINITY_GAME_API AuraScript : public _SpellScript
+class AuraScript : public _SpellScript
 {
     // internal use classes & functions
     // DO NOT OVERRIDE THESE IN SCRIPTS
@@ -506,7 +495,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
 
         AURASCRIPT_FUNCTION_TYPE_DEFINES(AuraScript)
 
-        class TRINITY_GAME_API CheckAreaTargetHandler
+        class CheckAreaTargetHandler
         {
             public:
                 CheckAreaTargetHandler(AuraCheckAreaTargetFnType pHandlerScript);
@@ -514,7 +503,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraCheckAreaTargetFnType pHandlerScript;
         };
-        class TRINITY_GAME_API AuraDispelHandler
+        class AuraDispelHandler
         {
             public:
                 AuraDispelHandler(AuraDispelFnType pHandlerScript);
@@ -522,14 +511,14 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraDispelFnType pHandlerScript;
         };
-        class TRINITY_GAME_API EffectBase : public  _SpellScript::EffectAuraNameCheck, public _SpellScript::EffectHook
+        class EffectBase : public  _SpellScript::EffectAuraNameCheck, public _SpellScript::EffectHook
         {
             public:
                 EffectBase(uint8 _effIndex, uint16 _effName);
                 std::string ToString();
                 bool CheckEffect(SpellInfo const* spellInfo, uint8 effIndex) override;
         };
-        class TRINITY_GAME_API EffectPeriodicHandler : public EffectBase
+        class EffectPeriodicHandler : public EffectBase
         {
             public:
                 EffectPeriodicHandler(AuraEffectPeriodicFnType _pEffectHandlerScript, uint8 _effIndex, uint16 _effName);
@@ -537,7 +526,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraEffectPeriodicFnType pEffectHandlerScript;
         };
-        class TRINITY_GAME_API EffectUpdatePeriodicHandler : public EffectBase
+        class EffectUpdatePeriodicHandler : public EffectBase
         {
             public:
                 EffectUpdatePeriodicHandler(AuraEffectUpdatePeriodicFnType _pEffectHandlerScript, uint8 _effIndex, uint16 _effName);
@@ -545,7 +534,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraEffectUpdatePeriodicFnType pEffectHandlerScript;
         };
-        class TRINITY_GAME_API EffectCalcAmountHandler : public EffectBase
+        class EffectCalcAmountHandler : public EffectBase
         {
             public:
                 EffectCalcAmountHandler(AuraEffectCalcAmountFnType _pEffectHandlerScript, uint8 _effIndex, uint16 _effName);
@@ -553,7 +542,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraEffectCalcAmountFnType pEffectHandlerScript;
         };
-        class TRINITY_GAME_API EffectCalcPeriodicHandler : public EffectBase
+        class EffectCalcPeriodicHandler : public EffectBase
         {
             public:
                 EffectCalcPeriodicHandler(AuraEffectCalcPeriodicFnType _pEffectHandlerScript, uint8 _effIndex, uint16 _effName);
@@ -561,7 +550,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraEffectCalcPeriodicFnType pEffectHandlerScript;
         };
-        class TRINITY_GAME_API EffectCalcSpellModHandler : public EffectBase
+        class EffectCalcSpellModHandler : public EffectBase
         {
             public:
                 EffectCalcSpellModHandler(AuraEffectCalcSpellModFnType _pEffectHandlerScript, uint8 _effIndex, uint16 _effName);
@@ -569,7 +558,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraEffectCalcSpellModFnType pEffectHandlerScript;
         };
-        class TRINITY_GAME_API EffectApplyHandler : public EffectBase
+        class EffectApplyHandler : public EffectBase
         {
             public:
                 EffectApplyHandler(AuraEffectApplicationModeFnType _pEffectHandlerScript, uint8 _effIndex, uint16 _effName, AuraEffectHandleModes _mode);
@@ -578,7 +567,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
                 AuraEffectApplicationModeFnType pEffectHandlerScript;
                 AuraEffectHandleModes mode;
         };
-        class TRINITY_GAME_API EffectAbsorbHandler : public EffectBase
+        class EffectAbsorbHandler : public EffectBase
         {
             public:
                 EffectAbsorbHandler(AuraEffectAbsorbFnType _pEffectHandlerScript, uint8 _effIndex);
@@ -586,7 +575,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraEffectAbsorbFnType pEffectHandlerScript;
         };
-        class TRINITY_GAME_API EffectManaShieldHandler : public EffectBase
+        class EffectManaShieldHandler : public EffectBase
         {
             public:
                 EffectManaShieldHandler(AuraEffectAbsorbFnType _pEffectHandlerScript, uint8 _effIndex);
@@ -594,7 +583,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraEffectAbsorbFnType pEffectHandlerScript;
         };
-        class TRINITY_GAME_API EffectSplitHandler : public EffectBase
+        class EffectSplitHandler : public EffectBase
         {
             public:
                 EffectSplitHandler(AuraEffectSplitFnType _pEffectHandlerScript, uint8 _effIndex);
@@ -602,7 +591,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraEffectSplitFnType pEffectHandlerScript;
         };
-        class TRINITY_GAME_API CheckProcHandler
+        class CheckProcHandler
         {
             public:
                 CheckProcHandler(AuraCheckProcFnType handlerScript);
@@ -610,7 +599,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraCheckProcFnType _HandlerScript;
         };
-        class TRINITY_GAME_API AuraProcHandler
+        class AuraProcHandler
         {
             public:
                 AuraProcHandler(AuraProcFnType handlerScript);
@@ -618,7 +607,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
             private:
                 AuraProcFnType _HandlerScript;
         };
-        class TRINITY_GAME_API EffectProcHandler : public EffectBase
+        class EffectProcHandler : public EffectBase
         {
             public:
                 EffectProcHandler(AuraEffectProcFnType effectHandlerScript, uint8 effIndex, uint16 effName);
@@ -658,7 +647,7 @@ class TRINITY_GAME_API AuraScript : public _SpellScript
         AuraApplication const* m_auraApplication;
         bool m_defaultActionPrevented;
 
-        class TRINITY_GAME_API ScriptStateStore
+        class ScriptStateStore
         {
         public:
             AuraApplication const* _auraApplication;

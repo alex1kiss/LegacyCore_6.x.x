@@ -26,7 +26,7 @@
  * Multiplexes zmq messages from many threads,
  * and then passes them to another socket.
  */
-class TRINITY_IPC_API ZmqMux : public ZMQTask
+class ZmqMux : public ZMQTask
 {
 public:
     ZmqMux(std::string const& from, std::string const& to);

@@ -46,7 +46,7 @@ class TaskContext;
 /// with the same duration or a new one.
 /// It also provides access to the repeat counter which is useful for task that repeat itself often
 /// but behave different every time (spoken event dialogs for example).
-class TRINITY_COMMON_API TaskScheduler
+class TaskScheduler
 {
     friend class TaskContext;
 
@@ -131,7 +131,7 @@ class TRINITY_COMMON_API TaskScheduler
         };
     };
 
-    class TRINITY_COMMON_API TaskQueue
+    class TaskQueue
     {
         std::multiset<TaskContainer, Compare> container;
 
@@ -408,7 +408,7 @@ private:
     void Dispatch(success_t const& callback);
 };
 
-class TRINITY_COMMON_API TaskContext
+class TaskContext
 {
     friend class TaskScheduler;
 

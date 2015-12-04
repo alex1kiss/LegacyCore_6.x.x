@@ -22,8 +22,6 @@
 #include <G3D/CollisionDetection.h>
 #include <G3D/AABox.h>
 
-#include "Define.h"
-
 #include "NodeValueAccess.h"
 
 /**
@@ -50,7 +48,7 @@ namespace VMAP
     //==============================================================
     //==============================================================
 
-    class TRINITY_COMMON_API MyCollisionDetection
+    class MyCollisionDetection
     {
     private:
     public:

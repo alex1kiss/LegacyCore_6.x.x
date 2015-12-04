@@ -50,14 +50,18 @@ typedef std::map<uint32, rbac::RBACPermission*> RBACPermissionsContainer;
 typedef std::map<uint8, rbac::RBACPermissionContainer> RBACDefaultPermissionsContainer;
 }
 
-class TRINITY_GAME_API AccountMgr
+class AccountMgr
 {
     private:
         AccountMgr();
         ~AccountMgr();
 
     public:
-        static AccountMgr* instance();
+        static AccountMgr* instance()
+        {
+            static AccountMgr instance;
+            return &instance;
+        }
 
         AccountOpResult CreateAccount(std::string username, std::string password, std::string email = "", uint32 bnetAccountId = 0, uint8 bnetIndex = 0);
         static AccountOpResult DeleteAccount(uint32 accountId);

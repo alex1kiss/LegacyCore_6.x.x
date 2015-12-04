@@ -128,7 +128,7 @@ enum CalendarError
 #define CALENDAR_MAX_INVITES            100
 #define CALENDAR_DEFAULT_RESPONSE_TIME  946684800 // 01/01/2000 00:00:00
 
-struct TRINITY_GAME_API CalendarInvite
+struct CalendarInvite
 {
     public:
         CalendarInvite(CalendarInvite const& calendarInvite, uint64 inviteId, uint64 eventId)
@@ -188,7 +188,7 @@ struct TRINITY_GAME_API CalendarInvite
         std::string _note;
 };
 
-struct TRINITY_GAME_API CalendarEvent
+struct CalendarEvent
 {
     public:
         CalendarEvent(CalendarEvent const& calendarEvent, uint64 eventId)
@@ -268,7 +268,7 @@ typedef std::vector<CalendarInvite*> CalendarInviteStore;
 typedef std::set<CalendarEvent*> CalendarEventStore;
 typedef std::map<uint64 /* eventID */, CalendarInviteStore > CalendarEventInviteStore;
 
-class TRINITY_GAME_API CalendarMgr
+class CalendarMgr
 {
     private:
         CalendarMgr();
@@ -283,7 +283,11 @@ class TRINITY_GAME_API CalendarMgr
         uint64 _maxInviteId;
 
     public:
-        static CalendarMgr* instance();
+        static CalendarMgr* instance()
+        {
+            static CalendarMgr instance;
+            return &instance;
+        }
 
         void LoadFromDB();
 

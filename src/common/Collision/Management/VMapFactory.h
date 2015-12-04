@@ -29,7 +29,7 @@ namespace VMAP
 {
     //===========================================================
 
-    class TRINITY_COMMON_API VMapFactory
+    class VMapFactory
     {
         public:
             static IVMapManager* createOrGetVMapManager();

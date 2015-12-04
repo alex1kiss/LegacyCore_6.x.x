@@ -59,14 +59,18 @@ struct ScriptPointMove
 
 typedef std::vector<ScriptPointMove> ScriptPointVector;
 
-class TRINITY_GAME_API SystemMgr
+class SystemMgr
 {
     private:
         SystemMgr() { }
         ~SystemMgr() { }
 
     public:
-        static SystemMgr* instance();
+        static SystemMgr* instance()
+        {
+            static SystemMgr instance;
+            return &instance;
+        }
 
         typedef std::unordered_map<uint32, ScriptPointVector> PointMoveMap;
 

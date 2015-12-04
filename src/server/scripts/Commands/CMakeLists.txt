@@ -8,9 +8,11 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-# default linkage of module for SCRIPTS=0 (basic scripts only)
-set(PREFER_BASIC_SCRIPTS   "static")
-# default linkage of module for SCRIPTS=1 (prefer static linking)
-set(PREFER_STATIC_SCRIPTS  "static")
-# default linkage of module for SCRIPTS=2 (prefer dynamic linking)
-set(PREFER_DYNAMIC_SCRIPTS "dynamic")
+file(GLOB_RECURSE sources_Commands Commands/*.cpp Commands/*.h)
+
+set(scripts_STAT_SRCS
+  ${scripts_STAT_SRCS}
+  ${sources_Commands}
+)
+
+message("  -> Prepared: Commands")

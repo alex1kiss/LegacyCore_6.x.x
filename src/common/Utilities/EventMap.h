@@ -22,7 +22,7 @@
 #include "Duration.h"
 #include "Util.h"
 
-class TRINITY_COMMON_API EventMap
+class EventMap
 {
     /**
     * Internal storage type.

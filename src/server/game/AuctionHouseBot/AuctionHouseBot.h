@@ -181,7 +181,7 @@ enum AuctionBotConfigFloatValues
 };
 
 // All basic config data used by other AHBot classes for self-configure.
-class TRINITY_GAME_API AuctionBotConfig
+class AuctionBotConfig
 {
 private:
     AuctionBotConfig(): _itemsPerCycleBoost(1000), _itemsPerCycleNormal(20) {}
@@ -190,7 +190,11 @@ private:
     AuctionBotConfig& operator=(const AuctionBotConfig&);
 
 public:
-    static AuctionBotConfig* instance();
+    static AuctionBotConfig* instance()
+    {
+        static AuctionBotConfig instance;
+        return &instance;
+    }
 
     bool Initialize();
     const std::string& GetAHBotIncludes() const { return _AHBotIncludes; }
@@ -255,7 +259,7 @@ typedef AuctionHouseBotStatusInfoPerType AuctionHouseBotStatusInfo[MAX_AUCTION_H
 
 // This class handle both Selling and Buying method
 // (holder of AuctionBotBuyer and AuctionBotSeller objects)
-class TRINITY_GAME_API AuctionHouseBot
+class AuctionHouseBot
 {
 private:
     AuctionHouseBot();
@@ -264,7 +268,11 @@ private:
     AuctionHouseBot& operator=(const AuctionHouseBot&);
 
 public:
-    static AuctionHouseBot* instance();
+    static AuctionHouseBot* instance()
+    {
+        static AuctionHouseBot instance;
+        return &instance;
+    }
 
     void Update();
     void Initialize();

@@ -265,7 +265,11 @@ class GuildFinderMgr
         static void SendApplicantListUpdate(Guild* guild);
         static void SendMembershipRequestListUpdate(Player* player);
 
-        static GuildFinderMgr* instance();
+        static GuildFinderMgr* instance()
+        {
+            static GuildFinderMgr instance;
+            return &instance;
+        }
 };
 
 #define sGuildFinderMgr GuildFinderMgr::instance()

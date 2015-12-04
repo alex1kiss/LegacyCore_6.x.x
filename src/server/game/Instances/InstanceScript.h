@@ -137,31 +137,10 @@ typedef std::map<uint32 /*entry*/, MinionInfo> MinionInfoMap;
 typedef std::map<uint32 /*type*/, ObjectGuid /*guid*/> ObjectGuidMap;
 typedef std::map<uint32 /*entry*/, uint32 /*type*/> ObjectInfoMap;
 
-// Saveable instance data
-class InstanceScriptDataStore
-{
-public:
-    InstanceScriptDataStore() : completedEncounters(0) { }
-    virtual ~InstanceScriptDataStore() { }
-
-protected:
-    std::vector<char> headers;
-    std::vector<BossInfo> bosses;
-    DoorInfoMap doors;
-    MinionInfoMap minions;
-    ObjectInfoMap _creatureInfo;
-    ObjectInfoMap _gameObjectInfo;
-    ObjectGuidMap _objectGuids;
-    // completed encounter mask, bit indexes are DungeonEncounter.dbc boss numbers,
-    // used for packets
-    uint32 completedEncounters;
-};
-
-class TRINITY_GAME_API InstanceScript
-    : public ZoneScript, public InstanceScriptDataStore
+class InstanceScript : public ZoneScript
 {
     public:
-        explicit InstanceScript(Map* map) : instance(map) { }
+        explicit InstanceScript(Map* map) : instance(map), completedEncounters(0) { }
 
         virtual ~InstanceScript() { }
 
@@ -273,8 +252,6 @@ class TRINITY_GAME_API InstanceScript
 
         uint32 GetEncounterCount() const { return uint32(bosses.size()); }
 
-        void DoHotSwapDataStore(InstanceScriptDataStore&& store);
-
     protected:
         void SetHeaders(std::string const& dataHeaders);
         void SetBossNumber(uint32 number) { bosses.resize(number); }
@@ -308,6 +285,15 @@ class TRINITY_GAME_API InstanceScript
 
     private:
         static void LoadObjectData(ObjectData const* creatureData, ObjectInfoMap& objectInfo);
+
+        std::vector<char> headers;
+        std::vector<BossInfo> bosses;
+        DoorInfoMap doors;
+        MinionInfoMap minions;
+        ObjectInfoMap _creatureInfo;
+        ObjectInfoMap _gameObjectInfo;
+        ObjectGuidMap _objectGuids;
+        uint32 completedEncounters; // completed encounter mask, bit indexes are DungeonEncounter.dbc boss numbers, used for packets
 };
 
 template<class AI, class T>

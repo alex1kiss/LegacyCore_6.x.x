@@ -25,7 +25,7 @@
 
 // Note. All times are in milliseconds here.
 
-class TRINITY_COMMON_API BasicEvent
+class BasicEvent
 {
     public:
         BasicEvent()
@@ -55,7 +55,7 @@ class TRINITY_COMMON_API BasicEvent
 
 typedef std::multimap<uint64, BasicEvent*> EventList;
 
-class TRINITY_COMMON_API EventProcessor
+class EventProcessor
 {
     public:
         EventProcessor();

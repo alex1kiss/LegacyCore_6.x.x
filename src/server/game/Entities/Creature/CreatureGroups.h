@@ -38,14 +38,18 @@ struct FormationInfo
 
 typedef std::unordered_map<ObjectGuid::LowType/*memberDBGUID*/, FormationInfo*>   CreatureGroupInfoType;
 
-class TRINITY_GAME_API FormationMgr
+class FormationMgr
 {
     private:
         FormationMgr() { }
         ~FormationMgr();
 
     public:
-        static FormationMgr* instance();
+        static FormationMgr* instance()
+        {
+            static FormationMgr instance;
+            return &instance;
+        }
 
         void AddCreatureToGroup(ObjectGuid::LowType leaderGuid, Creature* creature);
         void RemoveCreatureFromGroup(CreatureGroup* group, Creature* creature);
@@ -53,7 +57,7 @@ class TRINITY_GAME_API FormationMgr
         CreatureGroupInfoType CreatureGroupMap;
 };
 
-class TRINITY_GAME_API CreatureGroup
+class CreatureGroup
 {
     private:
         Creature* m_leader; //Important do not forget sometimes to work with pointers instead synonims :D:D

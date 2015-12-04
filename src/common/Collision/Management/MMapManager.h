@@ -38,7 +38,7 @@ namespace MMAP
 
     typedef std::set<uint32> TerrainSet;
 
-    struct TRINITY_COMMON_API NavMeshHolder
+    struct NavMeshHolder
     {
         // Pre-built navMesh
         dtNavMesh* navMesh;
@@ -49,7 +49,7 @@ namespace MMAP
         MMapTileSet loadedTileRefs;
     };
 
-    struct TRINITY_COMMON_API PhasedTile
+    struct PhasedTile
     {
         unsigned char* data;
         MmapTileHeader fileHeader;
@@ -62,7 +62,7 @@ namespace MMAP
 
     typedef std::unordered_map<uint32, TerrainSet> TerrainSetMap;
 
-    class TRINITY_COMMON_API MMapData
+    class MMapData
     {
     public:
         MMapData(dtNavMesh* mesh, uint32 mapId);
@@ -90,7 +90,7 @@ namespace MMAP
 
     // singleton class
     // holds all all access to mmap loading unloading and meshes
-    class TRINITY_COMMON_API MMapManager
+    class MMapManager
     {
         public:
             MMapManager() : loadedTiles(0), thread_safe_environment(true) {}

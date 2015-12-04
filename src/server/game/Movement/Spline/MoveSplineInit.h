@@ -35,7 +35,7 @@ namespace Movement
     };
 
     // Transforms coordinates from global to transport offsets
-    class TRINITY_GAME_API TransportPathTransform
+    class TransportPathTransform
     {
     public:
         TransportPathTransform(Unit* owner, bool transformForTransport)
@@ -49,7 +49,7 @@ namespace Movement
 
     /*  Initializes and launches spline movement
      */
-    class TRINITY_GAME_API MoveSplineInit
+    class MoveSplineInit
     {
     public:
 

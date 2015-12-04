@@ -44,10 +44,14 @@ struct WaypointData
 typedef std::vector<WaypointData*> WaypointPath;
 typedef std::unordered_map<uint32, WaypointPath> WaypointPathContainer;
 
-class TRINITY_GAME_API WaypointMgr
+class WaypointMgr
 {
     public:
-        static WaypointMgr* instance();
+        static WaypointMgr* instance()
+        {
+            static WaypointMgr instance;
+            return &instance;
+        }
 
         // Attempts to reload a single path from database
         void ReloadPath(uint32 id);

@@ -161,12 +161,6 @@ bool PlayerSocial::HasIgnore(ObjectGuid const& ignoreGuid)
     return _HasContact(ignoreGuid, SOCIAL_FLAG_IGNORED);
 }
 
-SocialMgr* SocialMgr::instance()
-{
-    static SocialMgr instance;
-    return &instance;
-}
-
 void SocialMgr::GetFriendInfo(Player* player, ObjectGuid const& friendGUID, FriendInfo& friendInfo)
 {
     if (!player)

@@ -430,7 +430,7 @@ enum EffectRadiusIndex
 };
 
 // Spell pet auras
-class TRINITY_GAME_API PetAura
+class PetAura
 {
     private:
         typedef std::unordered_map<uint32, uint32> PetAuraMap;
@@ -477,7 +477,7 @@ class TRINITY_GAME_API PetAura
 };
 typedef std::map<uint32, PetAura> SpellPetAuraMap;
 
-struct TRINITY_GAME_API SpellArea
+struct SpellArea
 {
     uint32 spellId;
     uint32 areaId;                                          // zone/subzone/or 0 is not limited to zone
@@ -590,14 +590,14 @@ inline bool IsProfessionOrRidingSkill(uint32 skill)
 bool IsPartOfSkillLine(uint32 skillId, uint32 spellId);
 
 // spell diminishing returns
-TRINITY_GAME_API DiminishingGroup GetDiminishingReturnsGroupForSpell(SpellInfo const* spellproto);
-TRINITY_GAME_API DiminishingReturnsType GetDiminishingReturnsGroupType(DiminishingGroup group);
-TRINITY_GAME_API DiminishingLevels GetDiminishingReturnsMaxLevel(DiminishingGroup group);
-TRINITY_GAME_API int32 GetDiminishingReturnsLimitDuration(SpellInfo const* spellproto);
+DiminishingGroup GetDiminishingReturnsGroupForSpell(SpellInfo const* spellproto);
+DiminishingReturnsType GetDiminishingReturnsGroupType(DiminishingGroup group);
+DiminishingLevels GetDiminishingReturnsMaxLevel(DiminishingGroup group);
+int32 GetDiminishingReturnsLimitDuration(SpellInfo const* spellproto);
 
-TRINITY_GAME_API extern PetFamilySpellsStore                         sPetFamilySpellsStore;
+extern PetFamilySpellsStore                         sPetFamilySpellsStore;
 
-class TRINITY_GAME_API SpellMgr
+class SpellMgr
 {
     // Constructors
     private:
@@ -606,7 +606,11 @@ class TRINITY_GAME_API SpellMgr
 
     // Accessors (const or static functions)
     public:
-        static SpellMgr* instance();
+        static SpellMgr* instance()
+        {
+            static SpellMgr instance;
+            return &instance;
+        }
 
         // Spell correctness for client using
         static bool IsSpellValid(SpellInfo const* spellInfo, Player* player = NULL, bool msg = true);

@@ -48,14 +48,18 @@ struct WardenCheckResult
     BigNumber Result;                                       // MEM_CHECK
 };
 
-class TRINITY_GAME_API WardenCheckMgr
+class WardenCheckMgr
 {
     private:
         WardenCheckMgr();
         ~WardenCheckMgr();
 
     public:
-        static WardenCheckMgr* instance();
+        static WardenCheckMgr* instance()
+        {
+            static WardenCheckMgr instance;
+            return &instance;
+        }
 
         // We have a linear key without any gaps, so we use vector for fast access
         typedef std::vector<WardenCheck*> CheckContainer;

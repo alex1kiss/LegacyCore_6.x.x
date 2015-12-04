@@ -266,7 +266,7 @@ class WintergraspCapturePoint : public BfCapturePoint
  * WinterGrasp Battlefield   *
  * ######################### */
 
-class TRINITY_GAME_API BattlefieldWG : public Battlefield
+class BattlefieldWG : public Battlefield
 {
     public:
         ~BattlefieldWG();
@@ -1098,7 +1098,7 @@ StaticWintergraspWorkshopInfo const WorkshopData[WG_MAX_WORKSHOP] =
 // ********************************************************************
 
 // Structure for different buildings that can be destroyed during battle
-struct TRINITY_GAME_API BfWGGameObjectBuilding
+struct BfWGGameObjectBuilding
 {
 private:
     // WG object
@@ -1150,7 +1150,7 @@ public:
 };
 
 // Structure for the 6 workshop
-struct TRINITY_GAME_API WintergraspWorkshop
+struct WintergraspWorkshop
 {
 private:
     BattlefieldWG* _wg;                             // Pointer to wintergrasp

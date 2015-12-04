@@ -65,7 +65,7 @@ enum DumpReturn
     DUMP_CHARACTER_DELETED
 };
 
-class TRINITY_GAME_API PlayerDump
+class PlayerDump
 {
     public:
         typedef std::set<ObjectGuid::LowType> DumpGuidSet;
@@ -75,7 +75,7 @@ class TRINITY_GAME_API PlayerDump
         PlayerDump() { }
 };
 
-class TRINITY_GAME_API PlayerDumpWriter : public PlayerDump
+class PlayerDumpWriter : public PlayerDump
 {
     public:
         PlayerDumpWriter() { }
@@ -94,7 +94,7 @@ class TRINITY_GAME_API PlayerDumpWriter : public PlayerDump
         DumpGuidSet items;
 };
 
-class TRINITY_GAME_API PlayerDumpReader : public PlayerDump
+class PlayerDumpReader : public PlayerDump
 {
     public:
         PlayerDumpReader() { }

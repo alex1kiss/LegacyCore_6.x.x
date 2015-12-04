@@ -35,7 +35,6 @@
 #include "InstanceSaveMgr.h"
 #include "ObjectAccessor.h"
 #include "ScriptMgr.h"
-#include "ScriptReloadMgr.h"
 #include "OutdoorPvP/OutdoorPvPMgr.h"
 #include "BattlegroundMgr.h"
 #include "TCSoap.h"
@@ -81,6 +80,12 @@ uint32 _worldLoopCounter(0);
 uint32 _lastChangeMsTime(0);
 uint32 _maxCoreStuckTimeInMs(0);
 
+WorldDatabaseWorkerPool WorldDatabase;                      ///< Accessor to the world database
+CharacterDatabaseWorkerPool CharacterDatabase;              ///< Accessor to the character database
+HotfixDatabaseWorkerPool HotfixDatabase;                    ///< Accessor to the hotfix database
+LoginDatabaseWorkerPool LoginDatabase;                      ///< Accessor to the realm/login database
+Realm realm;
+
 void SignalHandler(const boost::system::error_code& error, int signalNumber);
 void FreezeDetectorHandler(const boost::system::error_code& error);
 AsyncAcceptor* StartRaSocketAcceptor(boost::asio::io_service& ioService);
@@ -92,8 +97,6 @@ void ShutdownCLIThread(std::thread* cliThread);
 void ShutdownThreadPool(std::vector<std::thread>& threadPool);
 bool LoadRealmInfo();
 variables_map GetConsoleArguments(int argc, char** argv, std::string& cfg_file, std::string& cfg_service);
-
-extern void AddScripts();
 
 /// Launch the Trinity server
 extern int main(int argc, char** argv)
@@ -126,17 +129,16 @@ extern int main(int argc, char** argv)
     // If logs are supposed to be handled async then we need to pass the io_service into the Log singleton
     sLog->Initialize(sConfigMgr->GetBoolDefault("Log.Async.Enable", false) ? &_ioService : nullptr);
 
-    TC_LOG_INFO("server.worldserver", "%s (worldserver-daemon)", GitRevision::GetFullVersion());
-    TC_LOG_INFO("server.worldserver", "<Ctrl-C> to stop.\n");
-    TC_LOG_INFO("server.worldserver", " ______                       __");
-    TC_LOG_INFO("server.worldserver", "/\\__  _\\       __          __/\\ \\__");
-    TC_LOG_INFO("server.worldserver", "\\/_/\\ \\/ _ __ /\\_\\    ___ /\\_\\ \\, _\\  __  __");
-    TC_LOG_INFO("server.worldserver", "   \\ \\ \\/\\`'__\\/\\ \\ /' _ `\\/\\ \\ \\ \\/ /\\ \\/\\ \\");
-    TC_LOG_INFO("server.worldserver", "    \\ \\ \\ \\ \\/ \\ \\ \\/\\ \\/\\ \\ \\ \\ \\ \\_\\ \\ \\_\\ \\");
-    TC_LOG_INFO("server.worldserver", "     \\ \\_\\ \\_\\  \\ \\_\\ \\_\\ \\_\\ \\_\\ \\__\\\\/`____ \\");
-    TC_LOG_INFO("server.worldserver", "      \\/_/\\/_/   \\/_/\\/_/\\/_/\\/_/\\/__/ `/___/> \\");
-    TC_LOG_INFO("server.worldserver", "                                 C O R E  /\\___/");
-    TC_LOG_INFO("server.worldserver", "http://TrinityCore.org                    \\/__/\n");
+    TC_LOG_INFO("server.worldserver", "                                                                          ");    
+    TC_LOG_INFO("server.worldserver", "    //        _____    ________        //\\           ______    \\    //  ");
+    TC_LOG_INFO("server.worldserver", "   ||       ||        ||              //  \\         //     \\   \\  //   ");
+    TC_LOG_INFO("server.worldserver", "   ||       ||__      ||   ___       //____\\       ||            \\//    ");
+    TC_LOG_INFO("server.worldserver", "   ||       ||        ||  ||  ||    //      \\      ||             //     ");
+    TC_LOG_INFO("server.worldserver", "   ||_____  ||_____   ||______||   //        \\      \\______//   //      ");
+    TC_LOG_INFO("server.worldserver", "                                                                          ");
+    TC_LOG_INFO("server.worldserver", "                Legacy Project 2015(c) Future Game Emulation              ");
+    TC_LOG_INFO("server.worldserver", "                      <http://www.dar-project.org/> \n                    ");
+    TC_LOG_INFO("server.worldserver", "                                                                          ");
     TC_LOG_INFO("server.worldserver", "Using configuration file %s.", configFile.c_str());
     TC_LOG_INFO("server.worldserver", "Using SSL version: %s (library: %s)", OPENSSL_VERSION_TEXT, SSLeay_version(SSLEAY_VERSION));
     TC_LOG_INFO("server.worldserver", "Using Boost version: %i.%i.%i", BOOST_VERSION / 100000, BOOST_VERSION / 100 % 1000, BOOST_VERSION % 100);
@@ -192,9 +194,6 @@ extern int main(int argc, char** argv)
     LoginDatabase.DirectPExecute("UPDATE realmlist SET flag = flag | %u WHERE id = '%d'", REALM_FLAG_OFFLINE, realm.Id.Realm);
 
     LoadRealmInfo();
-
-    // Pass the script loader to the world
-    sWorld->SetScriptLoader(AddScripts);
 
     // Initialize the World
     sWorld->SetInitialWorldSettings();
@@ -272,7 +271,6 @@ extern int main(int argc, char** argv)
     sInstanceSaveMgr->Unload();
     sOutdoorPvPMgr->Die();                    // unload it before MapManager
     sMapMgr->UnloadAll();                     // unload all grids (including locked in memory)
-    sScriptReloadMgr->Unload();
     sScriptMgr->Unload();
 
     // set server offline

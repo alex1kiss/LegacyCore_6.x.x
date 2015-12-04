@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -15,25 +16,14 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Script loader forward declarations:
-void AddSC_kezan();
-void AddSC_instance_stonecore(); // Stonecore
-void AddSC_stonecore();
-void AddSC_boss_corborus();
-void AddSC_boss_slabhide();
-void AddSC_boss_ozruk();
-void AddSC_boss_high_priestess_azil();
+#ifdef _WIN32
+#ifndef _WIN32_SERVICE_
+#define _WIN32_SERVICE_
 
-// Don't change this functions name!
-// Name must match:
-// void Add##${NameOfDirectory}##Scripts()
-void AddMaelstromScripts()
-{
-    AddSC_kezan();
-    AddSC_instance_stonecore(); // Stonecore
-    AddSC_stonecore();
-    AddSC_boss_corborus();
-    AddSC_boss_slabhide();
-    AddSC_boss_ozruk();
-    AddSC_boss_high_priestess_azil();
-}
+bool WinServiceInstall();
+bool WinServiceUninstall();
+bool WinServiceRun();
+
+#endif                                                      // _WIN32_SERVICE_
+#endif                                                      // _WIN32
+

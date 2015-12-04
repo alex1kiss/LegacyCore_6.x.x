@@ -24,32 +24,32 @@
 
 class Map;
 
-class TRINITY_GAME_API GridState
+class GridState
 {
     public:
         virtual ~GridState() { };
         virtual void Update(Map &, NGridType&, GridInfo &, uint32 t_diff) const = 0;
 };
 
-class TRINITY_GAME_API InvalidState : public GridState
+class InvalidState : public GridState
 {
     public:
         void Update(Map &, NGridType &, GridInfo &, uint32 t_diff) const override;
 };
 
-class TRINITY_GAME_API ActiveState : public GridState
+class ActiveState : public GridState
 {
     public:
         void Update(Map &, NGridType &, GridInfo &, uint32 t_diff) const override;
 };
 
-class TRINITY_GAME_API IdleState : public GridState
+class IdleState : public GridState
 {
     public:
         void Update(Map &, NGridType &, GridInfo &, uint32 t_diff) const override;
 };
 
-class TRINITY_GAME_API RemovalState : public GridState
+class RemovalState : public GridState
 {
     public:
         void Update(Map &, NGridType &, GridInfo &, uint32 t_diff) const override;

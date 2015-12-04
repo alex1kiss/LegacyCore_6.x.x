@@ -17,12 +17,6 @@
 
 #include "SessionManager.h"
 
-Battlenet::SessionManager& Battlenet::SessionManager::Instance()
-{
-    static SessionManager instance;
-    return instance;
-}
-
 bool Battlenet::SessionManager::StartNetwork(boost::asio::io_service& service, std::string const& bindIp, uint16 port)
 {
     if (!BaseSocketMgr::StartNetwork(service, bindIp, port))

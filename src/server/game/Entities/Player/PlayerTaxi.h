@@ -6,7 +6,7 @@
 #include "WorldSession.h"
 #include <map>
 
-class TRINITY_GAME_API PlayerTaxi
+class PlayerTaxi
 {
     public:
         PlayerTaxi() { m_taximask.fill(0); }

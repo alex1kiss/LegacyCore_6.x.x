@@ -38,10 +38,6 @@ endif()
 if(SERVERS)
   add_subdirectory(gsoap)
   add_subdirectory(zmqpp)
-
-  if (WITH_DYNAMIC_LINKING)
-    add_subdirectory(efsw)
-  endif()
 endif()
 
 if(TOOLS)

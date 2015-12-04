@@ -78,7 +78,7 @@ class BfGraveyard;
 typedef std::vector<BfGraveyard*> GraveyardVect;
 typedef std::map<ObjectGuid, time_t> PlayerTimerMap;
 
-class TRINITY_GAME_API BfCapturePoint
+class BfCapturePoint
 {
     public:
         BfCapturePoint(Battlefield* bf);
@@ -146,7 +146,7 @@ class TRINITY_GAME_API BfCapturePoint
         ObjectGuid m_capturePointGUID;
 };
 
-class TRINITY_GAME_API BfGraveyard
+class BfGraveyard
 {
     public:
         BfGraveyard(Battlefield* Bf);
@@ -193,7 +193,7 @@ class TRINITY_GAME_API BfGraveyard
         Battlefield* m_Bf;
 };
 
-class TRINITY_GAME_API Battlefield : public ZoneScript
+class Battlefield : public ZoneScript
 {
     friend class BattlefieldMgr;
 

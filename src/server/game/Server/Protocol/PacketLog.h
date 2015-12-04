@@ -32,7 +32,7 @@ enum Direction
 
 class WorldPacket;
 
-class TRINITY_GAME_API PacketLog
+class PacketLog
 {
     private:
         PacketLog();
@@ -41,7 +41,11 @@ class TRINITY_GAME_API PacketLog
         std::once_flag _initializeFlag;
 
     public:
-        static PacketLog* instance();
+        static PacketLog* instance()
+        {
+            static PacketLog instance;
+            return &instance;
+        }
 
         void Initialize();
         bool CanLogPacket() const { return (_file != NULL); }

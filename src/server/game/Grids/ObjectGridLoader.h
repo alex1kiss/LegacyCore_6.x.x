@@ -27,7 +27,7 @@
 
 class ObjectWorldLoader;
 
-class TRINITY_GAME_API ObjectGridLoader
+class ObjectGridLoader
 {
     friend class ObjectWorldLoader;
 
@@ -56,7 +56,7 @@ class TRINITY_GAME_API ObjectGridLoader
 };
 
 //Stop the creatures before unloading the NGrid
-class TRINITY_GAME_API ObjectGridStoper
+class ObjectGridStoper
 {
     public:
         void Visit(CreatureMapType &m);
@@ -64,7 +64,7 @@ class TRINITY_GAME_API ObjectGridStoper
 };
 
 //Move the foreign creatures back to respawn positions before unloading the NGrid
-class TRINITY_GAME_API ObjectGridEvacuator
+class ObjectGridEvacuator
 {
     public:
         void Visit(CreatureMapType &m);

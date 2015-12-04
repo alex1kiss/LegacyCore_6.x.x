@@ -24,12 +24,6 @@
 #include "AuctionHouseBotBuyer.h"
 #include "AuctionHouseBotSeller.h"
 
-AuctionBotConfig* AuctionBotConfig::instance()
-{
-    static AuctionBotConfig instance;
-    return &instance;
-}
-
 bool AuctionBotConfig::Initialize()
 {
     GetConfigFromFile();
@@ -414,12 +408,6 @@ void AuctionHouseBot::Rebuild(bool all)
                 if (all || itr->second->bid == 0)           // expire now auction if no bid or forced
                     itr->second->expire_time = sWorld->GetGameTime();
     }
-}
-
-AuctionHouseBot* AuctionHouseBot::instance()
-{
-    static AuctionHouseBot instance;
-    return &instance;
 }
 
 void AuctionHouseBot::Update()

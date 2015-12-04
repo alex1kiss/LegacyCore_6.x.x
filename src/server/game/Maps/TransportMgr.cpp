@@ -35,12 +35,6 @@ TransportMgr::TransportMgr() { }
 
 TransportMgr::~TransportMgr() { }
 
-TransportMgr* TransportMgr::instance()
-{
-    static TransportMgr instance;
-    return &instance;
-}
-
 void TransportMgr::Unload()
 {
     _transportTemplates.clear();

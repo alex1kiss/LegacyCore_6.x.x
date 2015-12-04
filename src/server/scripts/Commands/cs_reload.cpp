@@ -391,7 +391,7 @@ public:
 
     static bool HandleReloadCommandCommand(ChatHandler* handler, const char* /*args*/)
     {
-        ChatHandler::invalidateCommandTable();
+        handler->SetLoadCommandTable(true);
         handler->SendGlobalGMSysMessage("DB table `command` will be reloaded at next chat command use.");
         return true;
     }

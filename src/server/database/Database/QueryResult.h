@@ -27,7 +27,7 @@
 #endif
 #include <mysql.h>
 
-class TRINITY_DATABASE_API ResultSet
+class ResultSet
 {
     public:
         ResultSet(MYSQL_RES* result, MYSQL_FIELD* fields, uint64 rowCount, uint32 fieldCount);
@@ -60,7 +60,7 @@ class TRINITY_DATABASE_API ResultSet
 
 typedef std::shared_ptr<ResultSet> QueryResult;
 
-class TRINITY_DATABASE_API PreparedResultSet
+class PreparedResultSet
 {
     public:
         PreparedResultSet(MYSQL_STMT* stmt, MYSQL_RES* result, uint64 rowCount, uint32 fieldCount);

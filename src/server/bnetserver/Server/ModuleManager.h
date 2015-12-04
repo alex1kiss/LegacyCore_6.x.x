@@ -75,7 +75,11 @@ namespace Battlenet
         void Load();
         ModuleInfo* CreateModule(std::string const& os, std::string const& name) const;
 
-        static ModuleManager* instance();
+        static ModuleManager* instance()
+        {
+            static ModuleManager instance;
+            return &instance;
+        }
 
     private:
         std::map<ModuleKey, ModuleInfo*> _modules;

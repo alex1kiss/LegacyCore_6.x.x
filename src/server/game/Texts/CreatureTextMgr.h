@@ -76,14 +76,18 @@ typedef std::unordered_map<uint32, CreatureTextHolder> CreatureTextMap;     // a
 
 typedef std::map<CreatureTextId, CreatureTextLocale> LocaleCreatureTextMap;
 
-class TRINITY_GAME_API CreatureTextMgr
+class CreatureTextMgr
 {
     private:
         CreatureTextMgr() { }
         ~CreatureTextMgr() { }
 
     public:
-        static CreatureTextMgr* instance();
+        static CreatureTextMgr* instance()
+        {
+            static CreatureTextMgr instance;
+            return &instance;
+        }
 
         void LoadCreatureTexts();
         void LoadCreatureTextLocales();

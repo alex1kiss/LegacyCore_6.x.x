@@ -75,12 +75,6 @@ void BattlegroundMgr::DeleteAllBattlegrounds()
     bgDataStore.clear();
 }
 
-BattlegroundMgr* BattlegroundMgr::instance()
-{
-    static BattlegroundMgr instance;
-    return &instance;
-}
-
 // used to update running battlegrounds, and delete finished ones
 void BattlegroundMgr::Update(uint32 diff)
 {

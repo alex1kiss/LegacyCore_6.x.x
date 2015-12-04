@@ -83,7 +83,7 @@ typedef std::map<ObjectGuid, LfgQueueData> LfgQueueDataContainer;
 /**
     Stores all data related to queue
 */
-class TRINITY_GAME_API LFGQueue
+class LFGQueue
 {
     public:
 

@@ -660,11 +660,6 @@ void InstanceScript::UpdatePhasing()
             player->SendUpdatePhasing();
 }
 
-void InstanceScript::DoHotSwapDataStore(InstanceScriptDataStore&& store)
-{
-    InstanceScriptDataStore::operator = (std::forward<InstanceScriptDataStore>(store));
-}
-
 std::string InstanceScript::GetBossStateName(uint8 state)
 {
     // See enum EncounterState in InstanceScript.h

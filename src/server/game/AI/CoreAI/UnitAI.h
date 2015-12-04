@@ -40,7 +40,7 @@ enum SelectAggroTarget
 };
 
 // default predicate function to select target based on distance, player and/or aura criteria
-struct TRINITY_GAME_API DefaultTargetSelector : public std::unary_function<Unit*, bool>
+struct DefaultTargetSelector : public std::unary_function<Unit*, bool>
 {
     const Unit* me;
     float m_dist;
@@ -90,7 +90,7 @@ struct TRINITY_GAME_API DefaultTargetSelector : public std::unary_function<Unit*
 
 // Target selector for spell casts checking range, auras and attributes
 /// @todo Add more checks from Spell::CheckCast
-struct TRINITY_GAME_API SpellTargetSelector : public std::unary_function<Unit*, bool>
+struct SpellTargetSelector : public std::unary_function<Unit*, bool>
 {
     public:
         SpellTargetSelector(Unit* caster, uint32 spellId);
@@ -104,7 +104,7 @@ struct TRINITY_GAME_API SpellTargetSelector : public std::unary_function<Unit*, 
 // Very simple target selector, will just skip main target
 // NOTE: When passing to UnitAI::SelectTarget remember to use 0 as position for random selection
 //       because tank will not be in the temporary list
-struct TRINITY_GAME_API NonTankTargetSelector : public std::unary_function<Unit*, bool>
+struct NonTankTargetSelector : public std::unary_function<Unit*, bool>
 {
     public:
         NonTankTargetSelector(Creature* source, bool playerOnly = true) : _source(source), _playerOnly(playerOnly) { }
@@ -115,7 +115,7 @@ struct TRINITY_GAME_API NonTankTargetSelector : public std::unary_function<Unit*
         bool _playerOnly;
 };
 
-class TRINITY_GAME_API UnitAI
+class UnitAI
 {
     protected:
         Unit* const me;
@@ -264,7 +264,7 @@ class TRINITY_GAME_API UnitAI
         UnitAI& operator=(UnitAI const& right) = delete;
 };
 
-class TRINITY_GAME_API PlayerAI : public UnitAI
+class PlayerAI : public UnitAI
 {
     protected:
         Player* const me;
@@ -274,7 +274,7 @@ class TRINITY_GAME_API PlayerAI : public UnitAI
         void OnCharmed(bool apply) override;
 };
 
-class TRINITY_GAME_API SimpleCharmedAI : public PlayerAI
+class SimpleCharmedAI : public PlayerAI
 {
     public:
         void UpdateAI(uint32 diff) override;

@@ -30,15 +30,15 @@ class Player;
 
 namespace WeatherMgr
 {
-    TRINITY_GAME_API void LoadWeatherData();
+    void LoadWeatherData();
 
-    TRINITY_GAME_API Weather* FindWeather(uint32 id);
-    TRINITY_GAME_API Weather* AddWeather(uint32 zone_id);
-    TRINITY_GAME_API void RemoveWeather(uint32 zone_id);
+    Weather* FindWeather(uint32 id);
+    Weather* AddWeather(uint32 zone_id);
+    void RemoveWeather(uint32 zone_id);
 
-    TRINITY_GAME_API void SendFineWeatherUpdateToPlayer(Player* player);
+    void SendFineWeatherUpdateToPlayer(Player* player);
 
-    TRINITY_GAME_API void Update(uint32 diff);
+    void Update(uint32 diff);
 }
 
 #endif

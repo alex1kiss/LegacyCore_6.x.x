@@ -41,7 +41,7 @@ enum RealmFlags
 
 namespace Battlenet
 {
-    struct TRINITY_SHARED_API RealmHandle
+    struct RealmHandle
     {
         RealmHandle() : Region(0), Site(0), Realm(0) { }
         RealmHandle(uint8 region, uint8 battlegroup, uint32 index)
@@ -78,7 +78,7 @@ enum RealmType
 };
 
 // Storage object for a realm
-struct TRINITY_SHARED_API Realm
+struct Realm
 {
     Battlenet::RealmHandle Id;
     uint32 Build;

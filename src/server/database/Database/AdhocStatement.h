@@ -25,7 +25,7 @@ typedef std::future<QueryResult> QueryResultFuture;
 typedef std::promise<QueryResult> QueryResultPromise;
 
 /*! Raw, ad-hoc query. */
-class TRINITY_DATABASE_API BasicStatementTask : public SQLOperation
+class BasicStatementTask : public SQLOperation
 {
     public:
         BasicStatementTask(const char* sql, bool async = false);

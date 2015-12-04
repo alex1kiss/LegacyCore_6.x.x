@@ -280,7 +280,7 @@ enum HotfixDatabaseStatements
     MAX_HOTFIXDATABASE_STATEMENTS
 };
 
-class TRINITY_DATABASE_API HotfixDatabaseConnection : public MySQLConnection
+class HotfixDatabaseConnection : public MySQLConnection
 {
 public:
     typedef HotfixDatabaseStatements Statements;

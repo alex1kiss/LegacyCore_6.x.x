@@ -177,7 +177,7 @@ enum MaxConditionTargets
     MAX_CONDITION_TARGETS = 3
 };
 
-struct TRINITY_GAME_API ConditionSourceInfo
+struct ConditionSourceInfo
 {
     WorldObject* mConditionTargets[MAX_CONDITION_TARGETS]; // an array of targets available for conditions
     Condition const* mLastFailedCondition;
@@ -190,7 +190,7 @@ struct TRINITY_GAME_API ConditionSourceInfo
     }
 };
 
-struct TRINITY_GAME_API Condition
+struct Condition
 {
     ConditionSourceType     SourceType;        //SourceTypeOrReferenceId
     uint32                  SourceGroup;
@@ -242,14 +242,18 @@ typedef std::unordered_map<uint32, ConditionsByEntryMap> ConditionEntriesByCreat
 typedef std::unordered_map<std::pair<int32, uint32 /*SAI source_type*/>, ConditionsByEntryMap> SmartEventConditionContainer;
 typedef std::unordered_map<uint32, ConditionContainer> ConditionReferenceContainer;//only used for references
 
-class TRINITY_GAME_API ConditionMgr
+class ConditionMgr
 {
     private:
         ConditionMgr();
         ~ConditionMgr();
 
     public:
-        static ConditionMgr* instance();
+        static ConditionMgr* instance()
+        {
+            static ConditionMgr instance;
+            return &instance;
+        }
 
         void LoadConditions(bool isReload = false);
         bool isConditionTypeValid(Condition* cond) const;

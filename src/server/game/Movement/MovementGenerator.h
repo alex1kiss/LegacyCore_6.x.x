@@ -27,7 +27,7 @@
 
 class Unit;
 
-class TRINITY_GAME_API MovementGenerator
+class MovementGenerator
 {
     public:
         virtual ~MovementGenerator();

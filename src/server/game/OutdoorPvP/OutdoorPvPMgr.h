@@ -35,14 +35,18 @@ struct OutdoorPvPData
 };
 
 // class to handle player enter / leave / areatrigger / GO use events
-class TRINITY_GAME_API OutdoorPvPMgr
+class OutdoorPvPMgr
 {
     private:
         OutdoorPvPMgr();
         ~OutdoorPvPMgr() { };
 
     public:
-        static OutdoorPvPMgr* instance();
+        static OutdoorPvPMgr* instance()
+        {
+            static OutdoorPvPMgr instance;
+            return &instance;
+        }
 
         // create outdoor pvp events
         void InitOutdoorPvP();

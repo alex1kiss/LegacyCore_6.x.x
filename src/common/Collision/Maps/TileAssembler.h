@@ -35,7 +35,7 @@ namespace VMAP
     */
     //===============================================
 
-    class TRINITY_COMMON_API ModelPosition
+    class ModelPosition
     {
         private:
             G3D::Matrix3 iRotation;
@@ -55,7 +55,7 @@ namespace VMAP
     typedef std::map<uint32, ModelSpawn> UniqueEntryMap;
     typedef std::multimap<uint32, uint32> TileMap;
 
-    struct TRINITY_COMMON_API MapSpawns
+    struct MapSpawns
     {
         UniqueEntryMap UniqueEntries;
         TileMap TileEntries;
@@ -64,7 +64,7 @@ namespace VMAP
     typedef std::map<uint32, MapSpawns*> MapData;
     //===============================================
 
-    struct TRINITY_COMMON_API GroupModel_Raw
+    struct GroupModel_Raw
     {
         uint32 mogpflags;
         uint32 GroupWMOID;
@@ -82,7 +82,7 @@ namespace VMAP
         bool Read(FILE* f);
     };
 
-    struct TRINITY_COMMON_API WorldModel_Raw
+    struct WorldModel_Raw
     {
         uint32 RootWMOID;
         std::vector<GroupModel_Raw> groupsArray;
@@ -90,7 +90,7 @@ namespace VMAP
         bool Read(const char * path);
     };
 
-    class TRINITY_COMMON_API TileAssembler
+    class TileAssembler
     {
         private:
             std::string iDestDir;

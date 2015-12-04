@@ -80,7 +80,7 @@ enum GarrisonFollowerStatus
 class GameObject;
 class Map;
 
-class TRINITY_GAME_API Garrison
+class Garrison
 {
 public:
     struct Building

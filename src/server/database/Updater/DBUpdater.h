@@ -23,7 +23,7 @@
 #include <string>
 #include <boost/filesystem.hpp>
 
-class TRINITY_DATABASE_API UpdateException : public std::exception
+class UpdateException : public std::exception
 {
 public:
     UpdateException(std::string const& msg) : _msg(msg) { }
@@ -41,7 +41,7 @@ enum BaseLocation
     LOCATION_DOWNLOAD
 };
 
-struct TRINITY_DATABASE_API UpdateResult
+struct UpdateResult
 {
     UpdateResult()
         : updated(0), recent(0), archived(0) { }
@@ -57,7 +57,7 @@ struct TRINITY_DATABASE_API UpdateResult
 class DBUpdaterUtil
 {
 public:
-    static std::string GetCorrectedMySQLExecutable();
+    static std::string GetMySqlCli();
 
     static bool CheckExecutable();
 
@@ -66,10 +66,12 @@ private:
 };
 
 template <class T>
-class TRINITY_DATABASE_API DBUpdater
+class DBUpdater
 {
 public:
     using Path = boost::filesystem::path;
+
+    static std::string GetSourceDirectory();
 
     static inline std::string GetConfigEntry();
 

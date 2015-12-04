@@ -20,7 +20,7 @@
 
 #include "Appender.h"
 
-class TRINITY_COMMON_API Logger
+class Logger
 {
     public:
         Logger();

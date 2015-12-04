@@ -67,14 +67,18 @@ namespace WorldPackets
     }
 }
 
-class TRINITY_GAME_API BattlegroundMgr
+class BattlegroundMgr
 {
     private:
         BattlegroundMgr();
         ~BattlegroundMgr();
 
     public:
-        static BattlegroundMgr* instance();
+        static BattlegroundMgr* instance()
+        {
+            static BattlegroundMgr instance;
+            return &instance;
+        }
 
         void Update(uint32 diff);
 

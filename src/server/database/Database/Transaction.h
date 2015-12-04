@@ -25,7 +25,7 @@
 class PreparedStatement;
 
 /*! Transactions, high level class. */
-class TRINITY_DATABASE_API Transaction
+class Transaction
 {
     friend class TransactionTask;
     friend class MySQLConnection;
@@ -58,7 +58,7 @@ class TRINITY_DATABASE_API Transaction
 typedef std::shared_ptr<Transaction> SQLTransaction;
 
 /*! Low level class*/
-class TRINITY_DATABASE_API TransactionTask : public SQLOperation
+class TransactionTask : public SQLOperation
 {
     template <class T> friend class DatabaseWorkerPool;
     friend class DatabaseWorker;

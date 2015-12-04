@@ -1762,7 +1762,7 @@ class OpcodeTable
         ServerOpcodeHandler* _internalTableServer[NUM_OPCODE_HANDLERS];
 };
 
-TRINITY_GAME_API extern OpcodeTable opcodeTable;
+extern OpcodeTable opcodeTable;
 
 #pragma pack(pop)
 

@@ -92,12 +92,6 @@ ObjectGuid::LowType GroupMgr::GenerateGroupId()
     return NextGroupId++;
 }
 
-GroupMgr* GroupMgr::instance()
-{
-    static GroupMgr instance;
-    return &instance;
-}
-
 Group* GroupMgr::GetGroupByGUID(ObjectGuid const& groupId) const
 {
     GroupContainer::const_iterator itr = GroupStore.find(groupId.GetCounter());

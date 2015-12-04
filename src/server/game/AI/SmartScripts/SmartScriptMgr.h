@@ -1435,14 +1435,18 @@ public:
 };
 typedef std::unordered_map<uint32, ObjectGuidList*> ObjectListMap;
 
-class TRINITY_GAME_API SmartWaypointMgr
+class SmartWaypointMgr
 {
     private:
         SmartWaypointMgr() { }
         ~SmartWaypointMgr();
 
     public:
-        static SmartWaypointMgr* instance();
+        static SmartWaypointMgr* instance()
+        {
+            static SmartWaypointMgr instance;
+            return &instance;
+        }
 
         void LoadFromDB();
 
@@ -1467,14 +1471,18 @@ typedef std::unordered_map<int64, SmartAIEventList> SmartAIEventMap;
 typedef std::map<uint32 /*entry*/, std::pair<uint32 /*spellId*/, SpellEffIndex /*effIndex*/> > CacheSpellContainer;
 typedef std::pair<CacheSpellContainer::const_iterator, CacheSpellContainer::const_iterator> CacheSpellContainerBounds;
 
-class TRINITY_GAME_API SmartAIMgr
+class SmartAIMgr
 {
     private:
         SmartAIMgr() { }
         ~SmartAIMgr() { }
 
     public:
-        static SmartAIMgr* instance();
+        static SmartAIMgr* instance()
+        {
+            static SmartAIMgr instance;
+            return &instance;
+        }
 
         void LoadSmartAIFromDB();
 

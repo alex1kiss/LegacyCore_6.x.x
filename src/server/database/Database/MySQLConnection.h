@@ -35,7 +35,7 @@ enum ConnectionFlags
     CONNECTION_BOTH = CONNECTION_ASYNC | CONNECTION_SYNCH
 };
 
-struct TRINITY_DATABASE_API MySQLConnectionInfo
+struct MySQLConnectionInfo
 {
     explicit MySQLConnectionInfo(std::string const& infoString)
     {
@@ -62,7 +62,7 @@ struct TRINITY_DATABASE_API MySQLConnectionInfo
 
 typedef std::map<uint32 /*index*/, std::pair<std::string /*query*/, ConnectionFlags /*sync/async*/> > PreparedStatementMap;
 
-class TRINITY_DATABASE_API MySQLConnection
+class MySQLConnection
 {
     template <class T> friend class DatabaseWorkerPool;
     friend class PingOperation;

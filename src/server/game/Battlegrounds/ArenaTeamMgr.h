@@ -20,14 +20,18 @@
 
 #include "ArenaTeam.h"
 
-class TRINITY_GAME_API ArenaTeamMgr
+class ArenaTeamMgr
 {
 private:
     ArenaTeamMgr();
     ~ArenaTeamMgr();
 
 public:
-    static ArenaTeamMgr* instance();
+    static ArenaTeamMgr* instance()
+    {
+        static ArenaTeamMgr instance;
+        return &instance;
+    }
 
     typedef std::unordered_map<uint32, ArenaTeam*> ArenaTeamContainer;
 

@@ -43,7 +43,7 @@ class Pool                                                  // for Pool of Pool 
 typedef std::set<uint64> ActivePoolObjects;
 typedef std::map<uint64, uint32> ActivePoolPools;
 
-class TRINITY_GAME_API ActivePoolData
+class ActivePoolData
 {
     public:
         template<typename T>
@@ -66,7 +66,7 @@ class TRINITY_GAME_API ActivePoolData
 };
 
 template <class T>
-class TRINITY_GAME_API PoolGroup
+class PoolGroup
 {
     typedef std::vector<PoolObject> PoolObjectList;
     public:
@@ -101,14 +101,18 @@ typedef std::multimap<uint32, uint32> PooledQuestRelation;
 typedef std::pair<PooledQuestRelation::const_iterator, PooledQuestRelation::const_iterator> PooledQuestRelationBounds;
 typedef std::pair<PooledQuestRelation::iterator, PooledQuestRelation::iterator> PooledQuestRelationBoundsNC;
 
-class TRINITY_GAME_API PoolMgr
+class PoolMgr
 {
     private:
         PoolMgr();
         ~PoolMgr() { };
 
     public:
-        static PoolMgr* instance();
+        static PoolMgr* instance()
+        {
+            static PoolMgr instance;
+            return &instance;
+        }
 
         void LoadFromDB();
         void LoadQuestPools();

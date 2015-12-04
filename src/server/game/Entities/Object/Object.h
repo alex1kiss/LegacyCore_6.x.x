@@ -92,7 +92,7 @@ class ZoneScript;
 
 typedef std::unordered_map<Player*, UpdateData> UpdateDataMapType;
 
-class TRINITY_GAME_API Object
+class Object
 {
     public:
         virtual ~Object();
@@ -395,7 +395,7 @@ enum MapObjectCellMoveState
     MAP_OBJECT_CELL_MOVE_INACTIVE, //in move list but should not move
 };
 
-class TRINITY_GAME_API MapObject
+class MapObject
 {
         friend class Map; //map for moving creatures
         friend class ObjectGridLoader; //grid loader for loading creatures
@@ -420,7 +420,7 @@ class TRINITY_GAME_API MapObject
         }
 };
 
-class TRINITY_GAME_API WorldObject : public Object, public WorldLocation
+class WorldObject : public Object, public WorldLocation
 {
     protected:
         explicit WorldObject(bool isWorldObject); //note: here it means if it is in grid object list or world object list

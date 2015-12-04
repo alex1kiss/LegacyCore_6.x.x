@@ -20,7 +20,7 @@ class NodeCreatorFunc = NodeCreator<Node>,
     /*class BoundsFunc = BoundsTrait<T>,*/
 class PositionFunc = PositionTrait<T>
 >
-class TRINITY_COMMON_API RegularGrid2D
+class RegularGrid2D
 {
 public:
 

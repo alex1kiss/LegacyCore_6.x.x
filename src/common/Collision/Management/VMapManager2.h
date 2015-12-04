@@ -51,7 +51,7 @@ namespace VMAP
     class StaticMapTree;
     class WorldModel;
 
-    class TRINITY_COMMON_API ManagedModel
+    class ManagedModel
     {
         public:
             ManagedModel() : iModel(nullptr), iRefCount(0) { }
@@ -75,7 +75,7 @@ namespace VMAP
         VMAP_DISABLE_LIQUIDSTATUS   = 0x8
     };
 
-    class TRINITY_COMMON_API VMapManager2 : public IVMapManager
+    class VMapManager2 : public IVMapManager
     {
         protected:
             // Tree to check collision

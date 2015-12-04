@@ -41,7 +41,7 @@ class Group;
     - player-instance binds for permanent heroic/raid saves
     - group-instance binds (both solo and permanent) cache the player binds for the group leader
 */
-class TRINITY_GAME_API InstanceSave
+class InstanceSave
 {
     friend class InstanceSaveManager;
     public:
@@ -147,7 +147,7 @@ class TRINITY_GAME_API InstanceSave
 
 typedef std::unordered_map<uint64 /*PAIR64(map, difficulty)*/, time_t /*resetTime*/> ResetTimeByMapDifficultyMap;
 
-class TRINITY_GAME_API InstanceSaveManager
+class InstanceSaveManager
 {
     friend class InstanceSave;
 
@@ -158,7 +158,11 @@ class TRINITY_GAME_API InstanceSaveManager
     public:
         typedef std::unordered_map<uint32 /*InstanceId*/, InstanceSave*> InstanceSaveHashMap;
 
-        static InstanceSaveManager* instance();
+        static InstanceSaveManager* instance()
+        {
+            static InstanceSaveManager instance;
+            return &instance;
+        }
 
         void Unload();
 

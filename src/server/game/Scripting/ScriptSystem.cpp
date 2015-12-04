@@ -21,13 +21,7 @@
 #include "DatabaseEnv.h"
 #include "ScriptMgr.h"
 
-TRINITY_GAME_API ScriptPointVector const SystemMgr::_empty;
-
-SystemMgr* SystemMgr::instance()
-{
-    static SystemMgr instance;
-    return &instance;
-}
+ScriptPointVector const SystemMgr::_empty;
 
 void SystemMgr::LoadScriptWaypoints()
 {

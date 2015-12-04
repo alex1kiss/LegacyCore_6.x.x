@@ -35,7 +35,7 @@ enum TotemSpells
     SPELL_TOTEMIC_WRATH         = 77747
 };
 
-class TRINITY_GAME_API Totem : public Minion
+class Totem : public Minion
 {
     public:
         Totem(SummonPropertiesEntry const* properties, Unit* owner);

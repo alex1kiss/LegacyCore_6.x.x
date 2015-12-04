@@ -182,9 +182,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/Weather
   ${CMAKE_CURRENT_SOURCE_DIR}/World
   ${CMAKE_SOURCE_DIR}/dep/cppformat
-  ${CMAKE_SOURCE_DIR}/dep/efsw/include/efsw
   ${CMAKE_SOURCE_DIR}/dep/g3dlite/include
-  ${CMAKE_SOURCE_DIR}/dep/process
   ${CMAKE_SOURCE_DIR}/dep/recastnavigation/Detour/Include
   ${CMAKE_SOURCE_DIR}/dep/zlib
   ${CMAKE_SOURCE_DIR}/dep/zmqpp
@@ -217,50 +215,10 @@ include_directories(
 
 GroupSources(${CMAKE_CURRENT_SOURCE_DIR})
 
-if (WITH_DYNAMIC_LINKING)
-  add_definitions(-DTRINITY_API_EXPORT_GAME)
-
-  add_library(game SHARED
-    ${game_STAT_PCH_SRC}
-    ${game_STAT_SRCS}
-  )
-
-  target_link_libraries(game
-    common
-    shared
-    database
-    ipc
-    g3dlib
-    gsoap
-    Detour
-    zmqpp
-    format
-    efsw
-    ${JEMALLOC_LIBRARY}
-    ${READLINE_LIBRARY}
-    ${TERMCAP_LIBRARY}
-    ${MYSQL_LIBRARY}
-    ${OPENSSL_LIBRARIES}
-    ${ZLIB_LIBRARIES}
-    ${ZMQ_LIBRARY}
-    ${CMAKE_THREAD_LIBS_INIT}
-    ${Boost_LIBRARIES}
-  )
-
-  if(UNIX)
-    install(TARGETS game DESTINATION lib)
-  elseif(WIN32)
-    install(TARGETS game
-      RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}"
-      LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}")
-  endif()
-
-else()
-  add_library(game STATIC
-    ${game_STAT_PCH_SRC}
-    ${game_STAT_SRCS}
-  )
-endif()
+add_library(game STATIC
+  ${game_STAT_PCH_SRC}
+  ${game_STAT_SRCS}
+)
 
 # Generate precompiled header
 if (USE_COREPCH)

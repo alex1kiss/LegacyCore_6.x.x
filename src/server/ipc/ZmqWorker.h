@@ -21,7 +21,7 @@
 #include "ZMQTask.h"
 #include <zmqpp/zmqpp.hpp>
 
-class TRINITY_IPC_API ZmqWorker : public ZMQTask
+class ZmqWorker : public ZMQTask
 {
 public:
     ZmqWorker(std::string const& taskUri, std::string const& resUri);

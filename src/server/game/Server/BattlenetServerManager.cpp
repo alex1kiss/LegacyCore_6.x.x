@@ -35,12 +35,6 @@ void IPC::BattlenetComm::ServerManager::CloseConnection()
     _socket = nullptr;
 }
 
-IPC::BattlenetComm::ServerManager& IPC::BattlenetComm::ServerManager::Instance()
-{
-    static ServerManager instance;
-    return instance;
-}
-
 IPC::BattlenetComm::Header IPC::BattlenetComm::ServerManager::CreateHeader(BnetCommands command)
 {
     Header header;

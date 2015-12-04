@@ -595,7 +595,7 @@ enum CharacterDatabaseStatements
     MAX_CHARACTERDATABASE_STATEMENTS
 };
 
-class TRINITY_DATABASE_API CharacterDatabaseConnection : public MySQLConnection
+class CharacterDatabaseConnection : public MySQLConnection
 {
 public:
     typedef CharacterDatabaseStatements Statements;

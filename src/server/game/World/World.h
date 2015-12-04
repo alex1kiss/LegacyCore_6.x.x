@@ -90,7 +90,6 @@ enum WorldTimers
     WUPDATE_AHBOT,
     WUPDATE_PINGDB,
     WUPDATE_GUILDSAVE,
-    WUPDATE_CHECK_FILECHANGES,
     WUPDATE_COUNT
 };
 
@@ -179,10 +178,6 @@ enum WorldBoolConfigs
     CONFIG_FEATURE_SYSTEM_CHARACTER_UNDELETE_ENABLED,
     CONFIG_RESET_DUEL_COOLDOWNS,
     CONFIG_RESET_DUEL_HEALTH_MANA,
-    CONFIG_HOTSWAP_ENABLED,
-    CONFIG_HOTSWAP_RECOMPILER_ENABLED,
-    CONFIG_HOTSWAP_INSTALL_ENABLED,
-    CONFIG_HOTSWAP_PREFIX_CORRECTION_ENABLED,
     BOOL_CONFIG_VALUE_COUNT
 };
 
@@ -556,10 +551,14 @@ struct CharacterInfo
 };
 
 /// The World
-class TRINITY_GAME_API World
+class World
 {
     public:
-        static World* instance();
+        static World* instance()
+        {
+            static World instance;
+            return &instance;
+        }
 
         static std::atomic<uint32> m_worldLoopCounter;
 
@@ -785,11 +784,6 @@ class TRINITY_GAME_API World
 
         void RemoveOldCorpses();
 
-        typedef void(*script_loader_function_t)();
-
-        void SetScriptLoader(script_loader_function_t script_loader_function) { m_script_loader_function = script_loader_function; }
-        script_loader_function_t GetScriptLoader() const { return m_script_loader_function; }
-
     protected:
         void _UpdateGameTime();
         // callback for UpdateRealmCharacters
@@ -898,15 +892,11 @@ class TRINITY_GAME_API World
 
         void ProcessQueryCallbacks();
         std::deque<PreparedQueryResultFuture> m_realmCharCallbacks;
-
-        script_loader_function_t m_script_loader_function;
 };
 
-TRINITY_GAME_API extern Realm realm;
-
-TRINITY_GAME_API uint32 GetVirtualRealmAddress();
+extern Realm realm;
+uint32 GetVirtualRealmAddress();
 
 #define sWorld World::instance()
-
 #endif
 /// @}

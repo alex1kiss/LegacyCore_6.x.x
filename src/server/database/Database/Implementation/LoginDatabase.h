@@ -147,7 +147,7 @@ enum LoginDatabaseStatements
     MAX_LOGINDATABASE_STATEMENTS
 };
 
-class TRINITY_DATABASE_API LoginDatabaseConnection : public MySQLConnection
+class LoginDatabaseConnection : public MySQLConnection
 {
 public:
     typedef LoginDatabaseStatements Statements;

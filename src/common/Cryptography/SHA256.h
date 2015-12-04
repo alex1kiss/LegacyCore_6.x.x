@@ -24,7 +24,7 @@
 
 class BigNumber;
 
-class TRINITY_COMMON_API SHA256Hash
+class SHA256Hash
 {
     public:
         SHA256Hash();

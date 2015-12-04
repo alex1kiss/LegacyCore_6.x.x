@@ -19,8 +19,10 @@
 #define TRINITY_CONTAINERS_H
 
 #include "Define.h"
-#include "Util.h"
 #include <list>
+
+//! Because circular includes are bad
+extern uint32 urand(uint32 min, uint32 max);
 
 namespace Trinity
 {

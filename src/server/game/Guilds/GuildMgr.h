@@ -20,14 +20,18 @@
 
 #include "Guild.h"
 
-class TRINITY_GAME_API GuildMgr
+class GuildMgr
 {
 private:
     GuildMgr();
     ~GuildMgr();
 
 public:
-    static GuildMgr* instance();
+    static GuildMgr* instance()
+    {
+        static GuildMgr instance;
+        return &instance;
+    }
 
     Guild* GetGuildByLeader(ObjectGuid guid) const;
     Guild* GetGuildById(ObjectGuid::LowType guildId) const;

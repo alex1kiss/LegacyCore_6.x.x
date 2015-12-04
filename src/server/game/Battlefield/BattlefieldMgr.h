@@ -24,10 +24,14 @@ class Player;
 class ZoneScript;
 
 // class to handle player enter / leave / areatrigger / GO use events
-class TRINITY_GAME_API BattlefieldMgr
+class BattlefieldMgr
 {
     public:
-        static BattlefieldMgr* instance();
+        static BattlefieldMgr* instance()
+        {
+            static BattlefieldMgr instance;
+            return &instance;
+        }
 
         // create battlefield events
         void InitBattlefield();

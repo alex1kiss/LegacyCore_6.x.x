@@ -131,7 +131,7 @@ enum LootSlotType
 class Player;
 class LootStore;
 
-struct TRINITY_GAME_API LootStoreItem
+struct LootStoreItem
 {
     uint32  itemid;                                         // id of the item
     uint32  reference;                                      // referenced TemplateleId
@@ -154,7 +154,7 @@ struct TRINITY_GAME_API LootStoreItem
     bool IsValid(LootStore const& store, uint32 entry) const; // Checks correctness of values
 };
 
-struct TRINITY_GAME_API LootItem
+struct LootItem
 {
     uint32  itemid;
     uint32  randomSuffix;
@@ -210,7 +210,7 @@ typedef std::unordered_map<uint32, LootTemplate*> LootTemplateMap;
 
 typedef std::set<uint32> LootIdSet;
 
-class TRINITY_GAME_API LootStore
+class LootStore
 {
     public:
         explicit LootStore(char const* name, char const* entryName, bool ratesAllowed)
@@ -247,7 +247,7 @@ class TRINITY_GAME_API LootStore
         bool m_ratesAllowed;
 };
 
-class TRINITY_GAME_API LootTemplate
+class LootTemplate
 {
     class LootGroup;                                       // A set of loot definitions for items (refs are not allowed inside)
     typedef std::vector<LootGroup*> LootGroups;
@@ -311,7 +311,7 @@ class LootValidatorRefManager : public RefManager<Loot, LootValidatorRef>
 
 //=====================================================
 
-struct TRINITY_GAME_API Loot
+struct Loot
 {
     QuestItemMap const& GetPlayerQuestItems() const { return PlayerQuestItems; }
     QuestItemMap const& GetPlayerFFAItems() const { return PlayerFFAItems; }
@@ -414,33 +414,48 @@ private:
     uint32 _difficultyBonusTreeMod;
 };
 
-TRINITY_GAME_API extern LootStore LootTemplates_Creature;
-TRINITY_GAME_API extern LootStore LootTemplates_Fishing;
-TRINITY_GAME_API extern LootStore LootTemplates_Gameobject;
-TRINITY_GAME_API extern LootStore LootTemplates_Item;
-TRINITY_GAME_API extern LootStore LootTemplates_Mail;
-TRINITY_GAME_API extern LootStore LootTemplates_Milling;
-TRINITY_GAME_API extern LootStore LootTemplates_Pickpocketing;
-TRINITY_GAME_API extern LootStore LootTemplates_Reference;
-TRINITY_GAME_API extern LootStore LootTemplates_Skinning;
-TRINITY_GAME_API extern LootStore LootTemplates_Disenchant;
-TRINITY_GAME_API extern LootStore LootTemplates_Prospecting;
-TRINITY_GAME_API extern LootStore LootTemplates_Spell;
+extern LootStore LootTemplates_Creature;
+extern LootStore LootTemplates_Fishing;
+extern LootStore LootTemplates_Gameobject;
+extern LootStore LootTemplates_Item;
+extern LootStore LootTemplates_Mail;
+extern LootStore LootTemplates_Milling;
+extern LootStore LootTemplates_Pickpocketing;
+extern LootStore LootTemplates_Reference;
+extern LootStore LootTemplates_Skinning;
+extern LootStore LootTemplates_Disenchant;
+extern LootStore LootTemplates_Prospecting;
+extern LootStore LootTemplates_Spell;
 
-TRINITY_GAME_API void LoadLootTemplates_Creature();
-TRINITY_GAME_API void LoadLootTemplates_Fishing();
-TRINITY_GAME_API void LoadLootTemplates_Gameobject();
-TRINITY_GAME_API void LoadLootTemplates_Item();
-TRINITY_GAME_API void LoadLootTemplates_Mail();
-TRINITY_GAME_API void LoadLootTemplates_Milling();
-TRINITY_GAME_API void LoadLootTemplates_Pickpocketing();
-TRINITY_GAME_API void LoadLootTemplates_Skinning();
-TRINITY_GAME_API void LoadLootTemplates_Disenchant();
-TRINITY_GAME_API void LoadLootTemplates_Prospecting();
+void LoadLootTemplates_Creature();
+void LoadLootTemplates_Fishing();
+void LoadLootTemplates_Gameobject();
+void LoadLootTemplates_Item();
+void LoadLootTemplates_Mail();
+void LoadLootTemplates_Milling();
+void LoadLootTemplates_Pickpocketing();
+void LoadLootTemplates_Skinning();
+void LoadLootTemplates_Disenchant();
+void LoadLootTemplates_Prospecting();
 
-TRINITY_GAME_API void LoadLootTemplates_Spell();
-TRINITY_GAME_API void LoadLootTemplates_Reference();
+void LoadLootTemplates_Spell();
+void LoadLootTemplates_Reference();
 
-TRINITY_GAME_API void LoadLootTables();
+inline void LoadLootTables()
+{
+    LoadLootTemplates_Creature();
+    LoadLootTemplates_Fishing();
+    LoadLootTemplates_Gameobject();
+    LoadLootTemplates_Item();
+    LoadLootTemplates_Mail();
+    LoadLootTemplates_Milling();
+    LoadLootTemplates_Pickpocketing();
+    LoadLootTemplates_Skinning();
+    LoadLootTemplates_Disenchant();
+    LoadLootTemplates_Prospecting();
+    LoadLootTemplates_Spell();
+
+    LoadLootTemplates_Reference();
+}
 
 #endif

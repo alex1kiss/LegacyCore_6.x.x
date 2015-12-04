@@ -24,12 +24,6 @@
 #include "GameObject.h"
 #include "ObjectMgr.h"
 
-GarrisonMgr& GarrisonMgr::Instance()
-{
-    static GarrisonMgr instance;
-    return instance;
-}
-
 void GarrisonMgr::Initialize()
 {
     for (GarrSiteLevelPlotInstEntry const* plotInstance : sGarrSiteLevelPlotInstStore)

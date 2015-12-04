@@ -29,7 +29,7 @@ class Group;
 namespace lfg
 {
 
-class TRINITY_GAME_API LFGPlayerScript : public PlayerScript
+class LFGPlayerScript : public PlayerScript
 {
     public:
         LFGPlayerScript();
@@ -40,7 +40,7 @@ class TRINITY_GAME_API LFGPlayerScript : public PlayerScript
         void OnMapChanged(Player* player) override;
 };
 
-class TRINITY_GAME_API LFGGroupScript : public GroupScript
+class LFGGroupScript : public GroupScript
 {
     public:
         LFGGroupScript();
@@ -52,7 +52,5 @@ class TRINITY_GAME_API LFGGroupScript : public GroupScript
         void OnChangeLeader(Group* group, ObjectGuid newLeaderGuid, ObjectGuid oldLeaderGuid) override;
         void OnInviteMember(Group* group, ObjectGuid guid) override;
 };
-
-/*keep private*/ void AddSC_LFGScripts();
 
 } // namespace lfg

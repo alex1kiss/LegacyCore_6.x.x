@@ -61,7 +61,7 @@ typedef std::map<uint32, ReputationRank> ForcedReactions;
 
 class Player;
 
-class TRINITY_GAME_API ReputationMgr
+class ReputationMgr
 {
     public:                                                 // constructors and global modifiers
         explicit ReputationMgr(Player* owner) : _player(owner),

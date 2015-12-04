@@ -26,7 +26,7 @@
 #include "GameObject.h"
 #include "CreatureAI.h"
 
-class TRINITY_GAME_API GameObjectAI
+class GameObjectAI
 {
     protected:
         GameObject* const go;
@@ -63,7 +63,7 @@ class TRINITY_GAME_API GameObjectAI
         virtual void EventInform(uint32 /*eventId*/) { }
 };
 
-class TRINITY_GAME_API NullGameObjectAI : public GameObjectAI
+class NullGameObjectAI : public GameObjectAI
 {
     public:
         explicit NullGameObjectAI(GameObject* g);

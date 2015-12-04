@@ -32,7 +32,7 @@ class IdleMovementGenerator : public MovementGenerator
         MovementGeneratorType GetMovementGeneratorType() const override { return IDLE_MOTION_TYPE; }
 };
 
-TRINITY_GAME_API extern IdleMovementGenerator si_idleMovement;
+extern IdleMovementGenerator si_idleMovement;
 
 class RotateMovementGenerator : public MovementGenerator
 {

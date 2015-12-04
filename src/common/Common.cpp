@@ -18,7 +18,7 @@
 
 #include "Common.h"
 
-TRINITY_COMMON_API char const* localeNames[TOTAL_LOCALES] =
+char const* localeNames[TOTAL_LOCALES] =
 {
   "enUS",
   "koKR",

@@ -37,7 +37,11 @@ namespace Battlenet
         bool HasProgram(std::string const& program) const { return _programs.count(program) != 0; }
         bool HasPlatform(std::string const& platform) const { return _platforms.count(platform) != 0; }
 
-        static ComponentMgr* instance();
+        static ComponentMgr* instance()
+        {
+            static ComponentMgr instance;
+            return &instance;
+        }
 
     private:
         std::set<Version::Record*> _components;

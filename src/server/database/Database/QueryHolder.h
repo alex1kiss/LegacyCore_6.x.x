@@ -20,7 +20,7 @@
 
 #include <future>
 
-class TRINITY_DATABASE_API SQLQueryHolder
+class SQLQueryHolder
 {
     friend class SQLQueryHolderTask;
     private:
@@ -46,7 +46,7 @@ class TRINITY_DATABASE_API SQLQueryHolder
 typedef std::future<SQLQueryHolder*> QueryResultHolderFuture;
 typedef std::promise<SQLQueryHolder*> QueryResultHolderPromise;
 
-class TRINITY_DATABASE_API SQLQueryHolderTask : public SQLOperation
+class SQLQueryHolderTask : public SQLOperation
 {
     private:
         SQLQueryHolder* m_holder;

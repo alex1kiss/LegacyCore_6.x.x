@@ -29,12 +29,6 @@
 #include "GameObjectAI.h"
 #include "WorldStatePackets.h"
 
-GameEventMgr* GameEventMgr::instance()
-{
-    static GameEventMgr instance;
-    return &instance;
-}
-
 bool GameEventMgr::CheckOneGameEvent(uint16 entry) const
 {
     switch (mGameEvent[entry].state)

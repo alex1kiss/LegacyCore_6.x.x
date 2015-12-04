@@ -339,9 +339,3 @@ void GuildFinderMgr::SendMembershipRequestListUpdate(Player* player)
 {
     player->SendDirectMessage(WorldPackets::GuildFinder::LFGuildApplicationsListChanged().Write());
 }
-
-GuildFinderMgr* GuildFinderMgr::instance()
-{
-    static GuildFinderMgr instance;
-    return &instance;
-}

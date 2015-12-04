@@ -42,57 +42,77 @@ class WorldRunnable;
 class Transport;
 
 template <class T>
-class TRINITY_GAME_API HashMapHolder
+class HashMapHolder
 {
-    //Non instanceable only static
-    HashMapHolder() { }
+    public:
+        static_assert(std::is_same<Player, T>::value
+            || std::is_same<Transport, T>::value,
+            "Only Player and Transport can be registered in global HashMapHolder");
 
-public:
-    static_assert(std::is_same<Player, T>::value
-        || std::is_same<Transport, T>::value,
-        "Only Player and Transport can be registered in global HashMapHolder");
+        typedef std::unordered_map<ObjectGuid, T*> MapType;
 
-    typedef std::unordered_map<ObjectGuid, T*> MapType;
+        static void Insert(T* o)
+        {
+            boost::unique_lock<boost::shared_mutex> lock(_lock);
 
-    static void Insert(T* o);
+            _objectMap[o->GetGUID()] = o;
+        }
 
-    static void Remove(T* o);
+        static void Remove(T* o)
+        {
+            boost::unique_lock<boost::shared_mutex> lock(_lock);
 
-    static T* Find(ObjectGuid guid);
+            _objectMap.erase(o->GetGUID());
+        }
 
-    static MapType& GetContainer();
+        static T* Find(ObjectGuid guid)
+        {
+            boost::shared_lock<boost::shared_mutex> lock(_lock);
 
-    static boost::shared_mutex* GetLock();
+            typename MapType::iterator itr = _objectMap.find(guid);
+            return (itr != _objectMap.end()) ? itr->second : NULL;
+        }
+
+        static MapType& GetContainer() { return _objectMap; }
+
+        static boost::shared_mutex* GetLock() { return &_lock; }
+
+    private:
+        //Non instanceable only static
+        HashMapHolder() { }
+
+        static boost::shared_mutex _lock;
+        static MapType _objectMap;
 };
 
 namespace ObjectAccessor
 {
     // these functions return objects only if in map of specified object
-    TRINITY_GAME_API WorldObject* GetWorldObject(WorldObject const&, ObjectGuid const&);
-    TRINITY_GAME_API Object* GetObjectByTypeMask(WorldObject const&, ObjectGuid const&, uint32 typemask);
-    TRINITY_GAME_API Corpse* GetCorpse(WorldObject const& u, ObjectGuid const& guid);
-    TRINITY_GAME_API GameObject* GetGameObject(WorldObject const& u, ObjectGuid const& guid);
-    TRINITY_GAME_API Transport* GetTransport(WorldObject const& u, ObjectGuid const& guid);
-    TRINITY_GAME_API DynamicObject* GetDynamicObject(WorldObject const& u, ObjectGuid const& guid);
-    TRINITY_GAME_API AreaTrigger* GetAreaTrigger(WorldObject const& u, ObjectGuid const& guid);
-    TRINITY_GAME_API Unit* GetUnit(WorldObject const&, ObjectGuid const& guid);
-    TRINITY_GAME_API Creature* GetCreature(WorldObject const& u, ObjectGuid const& guid);
-    TRINITY_GAME_API Pet* GetPet(WorldObject const&, ObjectGuid const& guid);
-    TRINITY_GAME_API Player* GetPlayer(Map const*, ObjectGuid const& guid);
-    TRINITY_GAME_API Player* GetPlayer(WorldObject const&, ObjectGuid const& guid);
-    TRINITY_GAME_API Creature* GetCreatureOrPetOrVehicle(WorldObject const&, ObjectGuid const&);
+    WorldObject* GetWorldObject(WorldObject const&, ObjectGuid const&);
+    Object* GetObjectByTypeMask(WorldObject const&, ObjectGuid const&, uint32 typemask);
+    Corpse* GetCorpse(WorldObject const& u, ObjectGuid const& guid);
+    GameObject* GetGameObject(WorldObject const& u, ObjectGuid const& guid);
+    Transport* GetTransport(WorldObject const& u, ObjectGuid const& guid);
+    DynamicObject* GetDynamicObject(WorldObject const& u, ObjectGuid const& guid);
+    AreaTrigger* GetAreaTrigger(WorldObject const& u, ObjectGuid const& guid);
+    Unit* GetUnit(WorldObject const&, ObjectGuid const& guid);
+    Creature* GetCreature(WorldObject const& u, ObjectGuid const& guid);
+    Pet* GetPet(WorldObject const&, ObjectGuid const& guid);
+    Player* GetPlayer(Map const*, ObjectGuid const& guid);
+    Player* GetPlayer(WorldObject const&, ObjectGuid const& guid);
+    Creature* GetCreatureOrPetOrVehicle(WorldObject const&, ObjectGuid const&);
 
     // these functions return objects if found in whole world
     // ACCESS LIKE THAT IS NOT THREAD SAFE
-    TRINITY_GAME_API Player* FindPlayer(ObjectGuid const&);
-    TRINITY_GAME_API Player* FindPlayerByName(std::string const& name);
+    Player* FindPlayer(ObjectGuid const&);
+    Player* FindPlayerByName(std::string const& name);
 
     // this returns Player even if he is not in world, for example teleporting
-    TRINITY_GAME_API Player* FindConnectedPlayer(ObjectGuid const&);
-    TRINITY_GAME_API Player* FindConnectedPlayerByName(std::string const& name);
+    Player* FindConnectedPlayer(ObjectGuid const&);
+    Player* FindConnectedPlayerByName(std::string const& name);
 
     // when using this, you must use the hashmapholder's lock
-    TRINITY_GAME_API HashMapHolder<Player>::MapType const& GetPlayers();
+    HashMapHolder<Player>::MapType const& GetPlayers();
 
     template<class T>
     void AddObject(T* object)
@@ -106,8 +126,7 @@ namespace ObjectAccessor
         HashMapHolder<T>::Remove(object);
     }
 
-    TRINITY_GAME_API void SaveAllPlayers();
+    void SaveAllPlayers();
 };
 
 #endif
-

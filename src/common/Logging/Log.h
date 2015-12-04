@@ -34,7 +34,7 @@
 
 #define LOGGER_ROOT "root"
 
-class TRINITY_COMMON_API Log
+class Log
 {
     typedef std::unordered_map<std::string, Logger> LoggerMap;
 
@@ -44,7 +44,11 @@ class TRINITY_COMMON_API Log
 
     public:
 
-        static Log* instance();
+        static Log* instance()
+        {
+            static Log instance;
+            return &instance;
+        }
 
         void Initialize(boost::asio::io_service* ioService);
         void LoadFromConfig();

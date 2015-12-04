@@ -233,7 +233,7 @@ struct AchievementCriteriaData
     bool Meets(uint32 criteria_id, Player const* source, Unit const* target, uint32 miscValue1 = 0) const;
 };
 
-struct TRINITY_GAME_API AchievementCriteriaDataSet
+struct AchievementCriteriaDataSet
 {
         AchievementCriteriaDataSet() : criteria_id(0) { }
         typedef std::vector<AchievementCriteriaData> Storage;
@@ -285,7 +285,7 @@ enum ProgressType
 };
 
 template<class T>
-class TRINITY_GAME_API AchievementMgr
+class AchievementMgr
 {
     public:
         AchievementMgr(T* owner);
@@ -335,7 +335,7 @@ class TRINITY_GAME_API AchievementMgr
         uint32 _achievementPoints;
 };
 
-class TRINITY_GAME_API AchievementGlobalMgr
+class AchievementGlobalMgr
 {
         AchievementGlobalMgr() { }
         ~AchievementGlobalMgr();
@@ -344,7 +344,11 @@ class TRINITY_GAME_API AchievementGlobalMgr
         static char const* GetCriteriaTypeString(AchievementCriteriaTypes type);
         static char const* GetCriteriaTypeString(uint32 type);
 
-        static AchievementGlobalMgr* instance();
+        static AchievementGlobalMgr* instance()
+        {
+            static AchievementGlobalMgr instance;
+            return &instance;
+        }
 
         AchievementCriteriaTreeList const* GetAchievementCriteriaTreesByCriteria(uint32 criteriaId) const
         {

@@ -39,14 +39,14 @@ class SpellInfo;
 //==============================================================
 // Class to calculate the real threat based
 
-struct TRINITY_GAME_API ThreatCalcHelper
+struct ThreatCalcHelper
 {
     static float calcThreat(Unit* hatedUnit, Unit* hatingUnit, float threat, SpellSchoolMask schoolMask = SPELL_SCHOOL_MASK_NORMAL, SpellInfo const* threatSpell = NULL);
     static bool isValidProcess(Unit* hatedUnit, Unit* hatingUnit, SpellInfo const* threatSpell = NULL);
 };
 
 //==============================================================
-class TRINITY_GAME_API HostileReference : public Reference<Unit, ThreatManager>
+class HostileReference : public Reference<Unit, ThreatManager>
 {
     public:
         HostileReference(Unit* refUnit, ThreatManager* threatManager, float threat);
@@ -141,7 +141,7 @@ class TRINITY_GAME_API HostileReference : public Reference<Unit, ThreatManager>
 //==============================================================
 class ThreatManager;
 
-class TRINITY_GAME_API ThreatContainer
+class ThreatContainer
 {
         friend class ThreatManager;
 
@@ -198,7 +198,7 @@ class TRINITY_GAME_API ThreatContainer
 
 //=================================================
 
-class TRINITY_GAME_API ThreatManager
+class ThreatManager
 {
     public:
         friend class HostileReference;

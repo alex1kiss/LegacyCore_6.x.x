@@ -38,10 +38,14 @@ struct GarrAbilities
     std::unordered_set<GarrAbilityEntry const*> Traits;
 };
 
-class TRINITY_GAME_API GarrisonMgr
+class GarrisonMgr
 {
 public:
-    static GarrisonMgr& Instance();
+    static GarrisonMgr& Instance()
+    {
+        static GarrisonMgr instance;
+        return instance;
+    }
 
     void Initialize();
 

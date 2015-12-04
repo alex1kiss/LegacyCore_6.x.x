@@ -31,7 +31,7 @@ namespace IPC
 {
     namespace BattlenetComm
     {
-        class TRINITY_GAME_API ServerManager
+        class ServerManager
         {
             ServerManager() : _socket(nullptr) { }
 
@@ -39,7 +39,11 @@ namespace IPC
             void InitializeConnection();
             void CloseConnection();
 
-            static ServerManager& Instance();
+            static ServerManager& Instance()
+            {
+                static ServerManager instance;
+                return instance;
+            }
 
             void SendChangeToonOnlineState(uint32 battlenetAccountId, uint32 gameAccountId, ObjectGuid guid, std::string const& name, bool online);
 

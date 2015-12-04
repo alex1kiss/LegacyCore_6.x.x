@@ -241,10 +241,4 @@ void LFGGroupScript::OnInviteMember(Group* group, ObjectGuid guid)
         sLFGMgr->LeaveLfg(leader);
 }
 
-void AddSC_LFGScripts()
-{
-    new LFGPlayerScript();
-    new LFGGroupScript();
-}
-
 } // namespace lfg

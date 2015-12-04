@@ -62,12 +62,6 @@ void MapManager::InitializeVisibilityDistanceInfo()
         (*iter).second->InitVisibilityDistance();
 }
 
-MapManager* MapManager::instance()
-{
-    static MapManager instance;
-    return &instance;
-}
-
 Map* MapManager::CreateBaseMap(uint32 id)
 {
     Map* map = FindBaseMap(id);

@@ -71,7 +71,7 @@ struct PreparedStatementData
 class MySQLPreparedStatement;
 
 //- Upper-level class that is used in code
-class TRINITY_DATABASE_API PreparedStatement
+class PreparedStatement
 {
     friend class PreparedStatementTask;
     friend class MySQLPreparedStatement;
@@ -111,7 +111,7 @@ class TRINITY_DATABASE_API PreparedStatement
 //- Class of which the instances are unique per MySQLConnection
 //- access to these class objects is only done when a prepared statement task
 //- is executed.
-class TRINITY_DATABASE_API MySQLPreparedStatement
+class MySQLPreparedStatement
 {
     friend class MySQLConnection;
     friend class PreparedStatement;
@@ -159,7 +159,7 @@ typedef std::future<PreparedQueryResult> PreparedQueryResultFuture;
 typedef std::promise<PreparedQueryResult> PreparedQueryResultPromise;
 
 //- Lower-level class, enqueuable operation
-class TRINITY_DATABASE_API PreparedStatementTask : public SQLOperation
+class PreparedStatementTask : public SQLOperation
 {
     public:
         PreparedStatementTask(PreparedStatement* stmt, bool async = false);

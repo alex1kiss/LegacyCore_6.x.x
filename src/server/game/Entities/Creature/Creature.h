@@ -141,8 +141,6 @@ struct CreatureTemplate
     uint32  ScriptID;
     uint32  GetRandomValidModelId() const;
     uint32  GetFirstValidModelId() const;
-    uint32  GetFirstInvisibleModel() const;
-    uint32  GetFirstVisibleModel() const;
 
     // helpers
     SkillType GetRequiredLootSkill() const
@@ -318,7 +316,6 @@ struct CreatureModelInfo
     float combat_reach;
     int8 gender;
     uint32 displayId_other_gender;
-    bool is_trigger;
 };
 
 // Benchmarked: Faster than std::map (insert/find)
@@ -478,7 +475,7 @@ class Creature : public Unit, public GridObject<Creature>, public MapObject
         void DisappearAndDie();
 
         bool Create(ObjectGuid::LowType guidlow, Map* map, uint32 phaseMask, uint32 entry, float x, float y, float z, float ang, CreatureData const* data = nullptr, uint32 vehId = 0);
-        bool LoadCreaturesAddon();
+        bool LoadCreaturesAddon(bool reload = false);
         void SelectLevel();
         void LoadEquipment(int8 id = 1, bool force = false);
 

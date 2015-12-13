@@ -3,6 +3,9 @@ Is a TrinityCore 6.x edited by DAR-Project team [www.DAR-Project.org](http://www
 
 ## Testing space
 
+[![Master Build Status](https://travis-ci.org/alex1kiss/LegacyCore_6.x.x.svg)](https://travis-ci.org/alex1kiss/LegacyCore_6.x.x) ](https://travis-ci.org/alex1kiss/LegacyCore_6.x.x)
+
+
 We test this core on [www.WoW-Legacy.xyz](http://www.wow-legacy.xyz)
 
 ## Information about compilation

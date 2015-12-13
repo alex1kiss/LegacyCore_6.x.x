@@ -19,6 +19,7 @@
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
 #include "ScriptedEscortAI.h"
+#include "Player.h"
 
 class AreaTrigger_at_mandori : public AreaTriggerScript
 {

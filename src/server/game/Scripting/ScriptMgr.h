@@ -414,8 +414,6 @@ class CreatureScript : public UnitScript, public UpdatableScript<Creature>
         CreatureScript(const char* name);
 
     public:
-    
-        bool IsDatabaseBound() const final { return true; }
 
         // Called when a dummy spell effect is triggered on the creature.
         virtual bool OnDummyEffect(Unit* /*caster*/, uint32 /*spellId*/, SpellEffIndex /*effIndex*/, Creature* /*target*/) { return false; }
@@ -434,9 +432,6 @@ class CreatureScript : public UnitScript, public UpdatableScript<Creature>
 
         // Called when a player selects a quest in the creature's quest menu.
         virtual bool OnQuestSelect(Player* /*player*/, Creature* /*creature*/, Quest const* /*quest*/) { return false; }
-        
-        // Called when a player completes a quest with the creature.
-        virtual bool OnQuestComplete(Player* /*player*/, Creature* /*creature*/, Quest const* /*quest*/) { return false; }
 
         // Called when a player completes a quest and is rewarded, opt is the selected item's index or 0
         virtual bool OnQuestReward(Player* /*player*/, Creature* /*creature*/, Quest const* /*quest*/, uint32 /*opt*/) { return false; }
@@ -455,8 +450,6 @@ class GameObjectScript : public ScriptObject, public UpdatableScript<GameObject>
         GameObjectScript(const char* name);
 
     public:
-    
-        bool IsDatabaseBound() const final { return true; }
 
         // Called when a dummy spell effect is triggered on the gameobject.
         virtual bool OnDummyEffect(Unit* /*caster*/, uint32 /*spellId*/, SpellEffIndex /*effIndex*/, GameObject* /*target*/) { return false; }

@@ -18,9 +18,9 @@
 
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
+#include "ScriptedGossip.h"
 #include "ScriptedEscortAI.h"
 #include "Player.h"
-#include "ScriptedGossip.h"
 #include "WorldSession.h"
 
 
@@ -34,7 +34,7 @@ class npc_shang_xi_choose_faction : public CreatureScript
     public:
         npc_shang_xi_choose_faction() : CreatureScript("npc_shang_xi_choose_faction") { }
 
-        bool OnGossipHello(Player* player, Creature* creature)
+        bool OnGossipHello(Player* player, Creature* creature) override
         {
             if (creature->IsQuestGiver())
                 player->PrepareQuestMenu(creature->GetGUID());
@@ -53,9 +53,9 @@ class npc_shang_xi_choose_faction : public CreatureScript
             return true;
         }
 
-        bool OnGossipSelect(Player* player, Creature* /*creature*/, uint32 /*sender*/, uint32 action)
+        bool OnGossipSelect(Player* player, Creature* creature, uint32 /*sender*/, uint32 action) override
         {
-            if (action == GOSSIP_ACTION_INFO_DEF + 1)
+           if (action == GOSSIP_ACTION_INFO_DEF + 1)
 				player->SendPandarenChooseFactionPacket(); // #todo moje da ne e tova??
             else if (action == GOSSIP_ACTION_INFO_DEF + 2)
                 player->TeleportTo(0, -8866.55f, 671.93f, 97.90f, 5.31f);

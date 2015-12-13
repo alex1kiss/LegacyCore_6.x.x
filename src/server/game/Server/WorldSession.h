@@ -28,8 +28,10 @@
 #include "AddonMgr.h"
 #include "DatabaseEnv.h"
 #include "World.h"
+#include "WorldPacket.h"
 #include "Packet.h"
 #include "Cryptography/BigNumber.h"
+#include "Opcodes.h"
 #include "AccountMgr.h"
 #include <unordered_set>
 

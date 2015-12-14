@@ -157,7 +157,7 @@ void OpcodeTable::Initialize()
 #define DEFINE_HANDLER(opcode, status, processing, packetclass, handler) \
     ValidateAndSetClientOpcode<packetclass, handler>(opcode, #opcode, status, processing);
 
-#define DEFINE_OPCODE_HANDLER_OLD(opcode, #opcode, status, processing, handler) \
+#define DEFINE_OPCODE_HANDLER_OLD(opcode, status, processing, handler) \
     DEFINE_HANDLER(opcode, status, processing, WorldPacket, handler);
 
     DEFINE_HANDLER(CMSG_ACCEPT_GUILD_INVITE,                                STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Guild::AcceptGuildInvite, &WorldSession::HandleGuildAcceptInvite);
@@ -591,8 +591,8 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_OPEN_MISSION_NPC,                                   STATUS_UNHANDLED, PROCESS_INPLACE,      WorldPackets::Null, &WorldSession::Handle_NULL);
     DEFINE_HANDLER(CMSG_OPEN_SHIPMENT_NPC,                                  STATUS_UNHANDLED, PROCESS_INPLACE,      WorldPackets::Null, &WorldSession::Handle_NULL);
     DEFINE_HANDLER(CMSG_OPEN_TRADESKILL_NPC,                                STATUS_UNHANDLED, PROCESS_INPLACE,      WorldPackets::Null, &WorldSession::Handle_NULL);
-    DEFINE_HANDLER(CMSG_OPT_OUT_OF_LOOT,                                    STATUS_UNHANDLED,  PROCESS_THREADUNSAFE, WorldPackets::Party::OptOutOfLoot, &WorldSession::HandleOptOutOfLootOpcode);
-    DEFINE_OPCODE_HANDLER_OLD(CMSG_PANDAREN_FACTION_CHOSEN,                 STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandlePandarenFactionChoiceOpcode                           );
+    DEFINE_HANDLER(CMSG_OPT_OUT_OF_LOOT,                                    STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Party::OptOutOfLoot, &WorldSession::HandleOptOutOfLootOpcode);
+    DEFINE_OPCODE_HANDLER_OLD(CMSG_PANDAREN_FACTION_CHOSEN,                 STATUS_UNHANDLED, PROCESS_THREADUNSAFE, &WorldSession::HandlePandarenFactionChoiceOpcode   );
     DEFINE_HANDLER(CMSG_PARTY_INVITE,                                       STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Party::PartyInviteClient, &WorldSession::HandlePartyInviteOpcode);
     DEFINE_HANDLER(CMSG_PARTY_INVITE_RESPONSE,                              STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Party::PartyInviteResponse, &WorldSession::HandlePartyInviteResponseOpcode);
     DEFINE_HANDLER(CMSG_PARTY_UNINVITE,                                     STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Party::PartyUninvite, &WorldSession::HandlePartyUninviteOpcode);
@@ -1435,8 +1435,8 @@ void OpcodeTable::Initialize()
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_OPEN_SHIPMENT_NPC_RESULT,                STATUS_UNHANDLED,    CONNECTION_TYPE_REALM);
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_OVERRIDE_LIGHT,                          STATUS_UNHANDLED,    CONNECTION_TYPE_REALM);
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_PAGE_TEXT,                               STATUS_NEVER,        CONNECTION_TYPE_REALM);
-    DEFINE_SERVER_OPCODE_HANDLER(SMSG_PANDAREN_CHOOSE_FACTION,                 STATUS_UNHANDLED,    CONNECTION_TYPE_REALM);
-    DEFINE_SERVER_OPCODE_HANDLER(SMSG_PANDAREN_FACTION_CHOSEN,                 STATUS_UNHANDLED,    CONNECTION_TYPE_REALM);
+    DEFINE_SERVER_OPCODE_HANDLER(SMSG_PANDAREN_CHOOSE_FACTION,                 STATUS_UNHANDLED,        CONNECTION_TYPE_REALM);
+    DEFINE_SERVER_OPCODE_HANDLER(SMSG_PANDAREN_FACTION_CHOSEN,                 STATUS_UNHANDLED,        CONNECTION_TYPE_REALM);
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_PARTY_COMMAND_RESULT,                    STATUS_NEVER,        CONNECTION_TYPE_REALM);
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_PARTY_INVITE,                            STATUS_NEVER,        CONNECTION_TYPE_REALM);
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_PARTY_KILL_LOG,                          STATUS_NEVER,        CONNECTION_TYPE_REALM);

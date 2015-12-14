@@ -157,7 +157,7 @@ void OpcodeTable::Initialize()
 #define DEFINE_HANDLER(opcode, status, processing, packetclass, handler) \
     ValidateAndSetClientOpcode<packetclass, handler>(opcode, #opcode, status, processing);
 
-#define DEFINE_OPCODE_HANDLER_OLD(opcode, status, processing, handler) \
+#define DEFINE_OPCODE_HANDLER_OLD(opcode, #opcode, status, processing, handler) \
     DEFINE_HANDLER(opcode, status, processing, WorldPacket, handler);
 
     DEFINE_HANDLER(CMSG_ACCEPT_GUILD_INVITE,                                STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Guild::AcceptGuildInvite, &WorldSession::HandleGuildAcceptInvite);

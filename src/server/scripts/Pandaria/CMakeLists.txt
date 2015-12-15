@@ -9,7 +9,7 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 set(scripts_STAT_SRCS
-  ${scripts_STAT_SRCS}  
+  ${scripts_STAT_SRCS}
   Pandaria/Zones/WanderingIsland/WanderingIsland_North.cpp
   Pandaria/Zones/WanderingIsland/WanderingIsland_East.cpp
   Pandaria/Zones/WanderingIsland/WanderingIsland_West.cpp

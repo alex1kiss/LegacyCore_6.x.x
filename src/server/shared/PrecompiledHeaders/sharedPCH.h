@@ -8,5 +8,3 @@
 #include "TypeList.h"
 #include "TaskScheduler.h"
 #include "EventMap.h"
-#include "ScriptMgr.h"
-#include "ScriptedCreature.h"

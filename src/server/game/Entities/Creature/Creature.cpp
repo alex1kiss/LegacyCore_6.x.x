@@ -1590,7 +1590,6 @@ void Creature::setDeathState(DeathState s)
 
         SetUInt32Value(UNIT_FIELD_MOUNTDISPLAYID, 0); // if creature is mounted on a virtual mount, remove it at death
         SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // fix client crash
-        
 
         setActive(false);
 

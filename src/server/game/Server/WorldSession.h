@@ -28,10 +28,8 @@
 #include "AddonMgr.h"
 #include "DatabaseEnv.h"
 #include "World.h"
-#include "WorldPacket.h"
 #include "Packet.h"
 #include "Cryptography/BigNumber.h"
-#include "Opcodes.h"
 #include "AccountMgr.h"
 #include <unordered_set>
 
@@ -161,6 +159,7 @@ namespace WorldPackets
         class CalendarRemoveInvite;
         class CalendarUpdateEvent;
         class SetSavedInstanceExtend;
+        class CalendarComplain;
     }
 
     namespace Character
@@ -1077,7 +1076,6 @@ class WorldSession
 
         // played time
         void HandlePlayedTime(WorldPackets::Character::RequestPlayedTime& packet);
-        
 
         // new
         void HandleLookingForGroup(WorldPacket& recvPacket);
@@ -1566,7 +1564,7 @@ class WorldSession
         void HandleCalendarEventRemoveInvite(WorldPackets::Calendar::CalendarRemoveInvite& calendarRemoveInvite);
         void HandleCalendarEventStatus(WorldPackets::Calendar::CalendarEventStatus& calendarEventStatus);
         void HandleCalendarEventModeratorStatus(WorldPackets::Calendar::CalendarEventModeratorStatus& calendarEventModeratorStatus);
-        void HandleCalendarComplain(WorldPacket& recvData);
+        void HandleCalendarComplain(WorldPackets::Calendar::CalendarComplain& calendarComplain);
         void HandleCalendarGetNumPending(WorldPackets::Calendar::CalendarGetNumPending& calendarGetNumPending);
         void HandleCalendarEventSignup(WorldPackets::Calendar::CalendarEventSignUp& calendarEventSignUp);
 

@@ -18,51 +18,7 @@
 
 #include "Opcodes.h"
 #include "WorldSession.h"
-#include "Packets/AchievementPackets.h"
-#include "Packets/AuctionHousePackets.h"
-#include "Packets/BankPackets.h"
-#include "Packets/BattlefieldPackets.h"
-#include "Packets/BattlegroundPackets.h"
-#include "Packets/BattlePetPackets.h"
-#include "Packets/BlackMarketPackets.h"
-#include "Packets/CalendarPackets.h"
-#include "Packets/ChannelPackets.h"
-#include "Packets/CharacterPackets.h"
-#include "Packets/ChatPackets.h"
-#include "Packets/ClientConfigPackets.h"
-#include "Packets/CombatPackets.h"
-#include "Packets/DuelPackets.h"
-#include "Packets/EquipmentSetPackets.h"
-#include "Packets/GameObjectPackets.h"
-#include "Packets/GarrisonPackets.h"
-#include "Packets/GuildPackets.h"
-#include "Packets/GuildFinderPackets.h"
-#include "Packets/PartyPackets.h"
-#include "Packets/InspectPackets.h"
-#include "Packets/InstancePackets.h"
-#include "Packets/ItemPackets.h"
-#include "Packets/LootPackets.h"
-#include "Packets/MailPackets.h"
-#include "Packets/MiscPackets.h"
-#include "Packets/MovementPackets.h"
-#include "Packets/NPCPackets.h"
-#include "Packets/PetitionPackets.h"
-#include "Packets/QueryPackets.h"
-#include "Packets/QuestPackets.h"
-#include "Packets/ReferAFriendPackets.h"
-#include "Packets/ReputationPackets.h"
-#include "Packets/ScenePackets.h"
-#include "Packets/SocialPackets.h"
-#include "Packets/TalentPackets.h"
-#include "Packets/TaxiPackets.h"
-#include "Packets/TicketPackets.h"
-#include "Packets/TokenPackets.h"
-#include "Packets/TotemPackets.h"
-#include "Packets/ToyPackets.h"
-#include "Packets/TradePackets.h"
-#include "Packets/VehiclePackets.h"
-#include "Packets/VoidStoragePackets.h"
-#include "Packets/WhoPackets.h"
+#include "Packets/AllPackets.h"
 
 template<class PacketClass, void(WorldSession::*HandlerFunction)(PacketClass&)>
 class PacketHandler : public ClientOpcodeHandler
@@ -237,7 +193,7 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_BUY_WOW_TOKEN_START,                                STATUS_UNHANDLED, PROCESS_INPLACE,      WorldPackets::Null, &WorldSession::Handle_NULL);
     DEFINE_HANDLER(CMSG_CAGE_BATTLE_PET,                                    STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::BattlePet::CageBattlePet, &WorldSession::HandleCageBattlePet);
     DEFINE_HANDLER(CMSG_CALENDAR_ADD_EVENT,                                 STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Calendar::CalendarAddEvent, &WorldSession::HandleCalendarAddEvent);
-    DEFINE_OPCODE_HANDLER_OLD(CMSG_CALENDAR_COMPLAIN,                       STATUS_UNHANDLED, PROCESS_THREADUNSAFE, &WorldSession::HandleCalendarComplain          );
+    DEFINE_HANDLER(CMSG_CALENDAR_COMPLAIN,                                  STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Calendar::CalendarComplain, &WorldSession::HandleCalendarComplain);
     DEFINE_HANDLER(CMSG_CALENDAR_COPY_EVENT,                                STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Calendar::CalendarCopyEvent, &WorldSession::HandleCalendarCopyEvent);
     DEFINE_HANDLER(CMSG_CALENDAR_EVENT_INVITE,                              STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Calendar::CalendarEventInvite, &WorldSession::HandleCalendarEventInvite);
     DEFINE_HANDLER(CMSG_CALENDAR_EVENT_MODERATOR_STATUS,                    STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Calendar::CalendarEventModeratorStatus, &WorldSession::HandleCalendarEventModeratorStatus);
@@ -592,7 +548,6 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_OPEN_SHIPMENT_NPC,                                  STATUS_UNHANDLED, PROCESS_INPLACE,      WorldPackets::Null, &WorldSession::Handle_NULL);
     DEFINE_HANDLER(CMSG_OPEN_TRADESKILL_NPC,                                STATUS_UNHANDLED, PROCESS_INPLACE,      WorldPackets::Null, &WorldSession::Handle_NULL);
     DEFINE_HANDLER(CMSG_OPT_OUT_OF_LOOT,                                    STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Party::OptOutOfLoot, &WorldSession::HandleOptOutOfLootOpcode);
-    DEFINE_OPCODE_HANDLER_OLD(CMSG_PANDAREN_FACTION_CHOSEN,                 STATUS_UNHANDLED, PROCESS_THREADUNSAFE, &WorldSession::HandlePandarenFactionChoiceOpcode   );
     DEFINE_HANDLER(CMSG_PARTY_INVITE,                                       STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Party::PartyInviteClient, &WorldSession::HandlePartyInviteOpcode);
     DEFINE_HANDLER(CMSG_PARTY_INVITE_RESPONSE,                              STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Party::PartyInviteResponse, &WorldSession::HandlePartyInviteResponseOpcode);
     DEFINE_HANDLER(CMSG_PARTY_UNINVITE,                                     STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Party::PartyUninvite, &WorldSession::HandlePartyUninviteOpcode);
@@ -718,7 +673,7 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_SET_ACTIVE_MOVER,                                   STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Movement::SetActiveMover, &WorldSession::HandleSetActiveMoverOpcode);
     DEFINE_OPCODE_HANDLER_OLD(CMSG_SET_ACTIVE_VOICE_CHANNEL,                STATUS_UNHANDLED, PROCESS_THREADUNSAFE, &WorldSession::HandleSetActiveVoiceChannel     );
     DEFINE_HANDLER(CMSG_SET_ADVANCED_COMBAT_LOGGING,                        STATUS_LOGGEDIN,  PROCESS_INPLACE,      WorldPackets::ClientConfig::SetAdvancedCombatLogging, &WorldSession::HandleSetAdvancedCombatLogging);
-    DEFINE_HANDLER(CMSG_SET_ASSISTANT_LEADER,                               STATUS_UNHANDLED, PROCESS_INPLACE,      WorldPackets::Party::SetAssistantLeader, &WorldSession::HandleSetAssistantLeaderOpcode);
+    DEFINE_HANDLER(CMSG_SET_ASSISTANT_LEADER,                               STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, WorldPackets::Party::SetAssistantLeader, &WorldSession::HandleSetAssistantLeaderOpcode);
     DEFINE_HANDLER(CMSG_SET_BACKPACK_AUTOSORT_DISABLED,                     STATUS_UNHANDLED, PROCESS_INPLACE,      WorldPackets::Null, &WorldSession::Handle_NULL);
     DEFINE_HANDLER(CMSG_SET_BANK_AUTOSORT_DISABLED,                         STATUS_UNHANDLED, PROCESS_INPLACE,      WorldPackets::Null, &WorldSession::Handle_NULL);
     DEFINE_HANDLER(CMSG_SET_BANK_BAG_SLOT_FLAG,                             STATUS_UNHANDLED, PROCESS_INPLACE,      WorldPackets::Null, &WorldSession::Handle_NULL);
@@ -1435,8 +1390,6 @@ void OpcodeTable::Initialize()
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_OPEN_SHIPMENT_NPC_RESULT,                STATUS_UNHANDLED,    CONNECTION_TYPE_REALM);
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_OVERRIDE_LIGHT,                          STATUS_UNHANDLED,    CONNECTION_TYPE_REALM);
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_PAGE_TEXT,                               STATUS_NEVER,        CONNECTION_TYPE_REALM);
-    DEFINE_SERVER_OPCODE_HANDLER(SMSG_PANDAREN_CHOOSE_FACTION,                 STATUS_UNHANDLED,        CONNECTION_TYPE_REALM);
-    DEFINE_SERVER_OPCODE_HANDLER(SMSG_PANDAREN_FACTION_CHOSEN,                 STATUS_UNHANDLED,        CONNECTION_TYPE_REALM);
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_PARTY_COMMAND_RESULT,                    STATUS_NEVER,        CONNECTION_TYPE_REALM);
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_PARTY_INVITE,                            STATUS_NEVER,        CONNECTION_TYPE_REALM);
     DEFINE_SERVER_OPCODE_HANDLER(SMSG_PARTY_KILL_LOG,                          STATUS_NEVER,        CONNECTION_TYPE_REALM);

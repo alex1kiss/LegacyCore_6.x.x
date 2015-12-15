@@ -35,7 +35,7 @@ if(SCRIPTS)
   include(Kalimdor/CMakeLists.txt)
   include(Outland/CMakeLists.txt)
   include(Northrend/CMakeLists.txt)
-#  include(Pandaria/CMakeLists.txt) - Working on that
+  include(Pandaria/CMakeLists.txt)
   include(Maelstrom/CMakeLists.txt)
   include(Events/CMakeLists.txt)
   include(Pet/CMakeLists.txt)

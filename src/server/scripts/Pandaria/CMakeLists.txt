@@ -10,9 +10,6 @@
 
 set(scripts_STAT_SRCS
   ${scripts_STAT_SRCS}
-  Pandaria/Zones/WanderingIsland/WanderingIsland_North.cpp
-  Pandaria/Zones/WanderingIsland/WanderingIsland_East.cpp
-  Pandaria/Zones/WanderingIsland/WanderingIsland_West.cpp
   Pandaria/Zones/WanderingIsland/WanderingIsland_South.cpp
 )
 

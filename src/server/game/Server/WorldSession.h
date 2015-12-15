@@ -30,6 +30,7 @@
 #include "World.h"
 #include "Packet.h"
 #include "Cryptography/BigNumber.h"
+#include "Opcodes.h"
 #include "AccountMgr.h"
 #include <unordered_set>
 
@@ -1076,6 +1077,9 @@ class WorldSession
 
         // played time
         void HandlePlayedTime(WorldPackets::Character::RequestPlayedTime& packet);
+        
+        // Pandaren Faction Choice
+        void HandlePandarenFactionChoiceOpcode(WorldPacket& recvPacket);
 
         // new
         void HandleLookingForGroup(WorldPacket& recvPacket);

@@ -32,18 +32,7 @@ class npc_shang_xi_choose_faction : public CreatureScript
             return true;
         }
 
-        bool OnGossipSelect(Player* player, Creature* /*creature*/, uint32 /*sender*/, uint32 action)
-        {
-            if (action == GOSSIP_ACTION_INFO_DEF + 1)
-				player->SendPandarenChooseFactionPacket(); // #todo moje da ne e tova??
-            else if (action == GOSSIP_ACTION_INFO_DEF + 2)
-                player->TeleportTo(0, -8866.55f, 671.93f, 97.90f, 5.31f);
-            else if (action == GOSSIP_ACTION_INFO_DEF + 3)
-                player->TeleportTo(1, 1577.30f, -4453.64f, 15.68f, 1.84f);
 
-            player->PlayerTalkClass->SendCloseGossip();
-            return true;
-        }
 };
 
 void AddSC_WanderingIsland_South()

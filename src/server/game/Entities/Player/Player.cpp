@@ -5995,7 +5995,7 @@ void Player::SendPandarenChooseFactionPacket()
         return;
 
     WorldPacket data(SMSG_NEUTRAL_PLAYER_FACTION_SELECT_RESULT, 0);
-    WorldPacket data(CMSG_NEUTRAL_PLAYER_SELECT_FACTION, 0);
+    GetSession()->SendPacket(&data);
 }
 
 ReputationRank Player::GetReputationRank(uint32 faction) const

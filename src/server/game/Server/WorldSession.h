@@ -30,7 +30,6 @@
 #include "World.h"
 #include "Packet.h"
 #include "Cryptography/BigNumber.h"
-#include "Opcodes.h"
 #include "AccountMgr.h"
 #include <unordered_set>
 
@@ -560,6 +559,7 @@ namespace WorldPackets
     {
         class CancelAura;
         class CancelAutoRepeatSpell;
+        class CancelChannelling;
         class CancelGrowthAura;
         class CancelMountAura;
         class RequestCategoryCooldowns;
@@ -1077,7 +1077,6 @@ class WorldSession
 
         // played time
         void HandlePlayedTime(WorldPackets::Character::RequestPlayedTime& packet);
-        
 
         // new
         void HandleLookingForGroup(WorldPacket& recvPacket);
@@ -1335,7 +1334,7 @@ class WorldSession
         void HandleItemTextQuery(WorldPackets::Query::ItemTextQuery& itemTextQuery);
         void HandleMailCreateTextItem(WorldPackets::Mail::MailCreateTextItem& packet);
         void HandleQueryNextMailTime(WorldPackets::Mail::MailQueryNextMailTime& packet);
-        void HandleCancelChanneling(WorldPacket& recvData);
+        void HandleCancelChanneling(WorldPackets::Spells::CancelChannelling& cancelChanneling);
 
         void SendItemPageInfo(ItemTemplate* itemProto);
         void HandleSplitItemOpcode(WorldPackets::Item::SplitItem& splitItem);

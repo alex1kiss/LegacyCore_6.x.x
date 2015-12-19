@@ -115,23 +115,6 @@ struct PlayerSpell
     bool disabled          : 1;                             // first rank has been learned in result talent learn but currently talent unlearned, save max learned ranks
 };
 
-uint32 const pandarenLanguageSpellsAlliance[] =
-{
-    668,    // Common
-    143368, // Pandaren, Common
-    108130  // Pandaren Alliance
-};
-
-uint32 const pandarenLanguageSpellsHorde[] =
-{
-    669,    // Orcish
-    143369, // Pandaren, Orcish.
-    108131  // Pandaren Horde
-};
-
-#define PANDAREN_FACTION_LANGUAGE_COUNT 3
-
-
 extern uint32 const MasterySpells[MAX_CLASSES];
 
 enum TalentSpecialization // talent tabs

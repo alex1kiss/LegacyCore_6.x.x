@@ -1079,7 +1079,7 @@ class WorldSession
         void HandlePlayedTime(WorldPackets::Character::RequestPlayedTime& packet);
 
         // Pandaren Faction Choice
-        void HandlePandarenFactionChoiceOpcode(WorldPacket& recvPacket);
+        void HandlePandarenFactionChoiceOpcode(WorldPacket& recvData);
         
         // new
         void HandleLookingForGroup(WorldPacket& recvPacket);
